@@ -1,6 +1,6 @@
 @font-face{font-family:Bess Anton;src:url('/fonts/anton.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:Bess Condenso;src:url('/fonts/condenso.otf') format('opentype');font-weight:400;font-display:swap}
-@font-face{font-family:Bess Roboto;src:url('/fonts/roboto-condensed.ttf') format('truetype');font-weight:400 900;font-display:swap}
+@font-face{font-family:Bess Roboto;src:url('/fonts/roboto-condensed.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:Bess Roboto;src:url('/fonts/roboto-condensed-light.ttf') format('truetype');font-weight:300;font-display:swap}
 
 html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
@@ -559,7 +559,11 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-frame-scene .bess-about-bio h2{font-size:clamp(60px,45cqw,180px);line-height:.95;margin-bottom:14px}
 .bess-frame-scene .bess-about-bio h2 .bess-symbol{left:0;top:-32px;width:42px;height:28px}
 .bess-frame-scene .bess-about-bio p{font-size:clamp(12px,1.8cqh,18px);line-height:1.12;padding:0;border:0}
-.bess-frame-scene .bess-new-release{bottom:7%;font-size:18px;gap:16px}
+.bess-frame-scene .bess-new-release{bottom:7%;font-size:18px;gap:16px;justify-content:flex-end;text-align:right}
+.bess-frame-scene .bess-about-top b{font-weight:800}
+.bess-site.bess-sticky-menu{transform:translateX(110%);visibility:hidden;pointer-events:none;transition:transform .45s cubic-bezier(.22,1,.36,1),visibility 0s .45s}
+.bess-site.bess-sticky-menu[data-visible="true"]{transform:translateX(0);visibility:visible;pointer-events:auto;transition-delay:0s}
+@media(prefers-reduced-motion:reduce){.bess-site.bess-sticky-menu{transition:none}}
 .bess-frame-scene .bess-new-release strong{font-size:24px}
 .bess-frame-scene .bess-release-square{background:var(--red);width:50px;height:54px}
 @media(max-width:600px){
@@ -571,10 +575,10 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
   .bess-frame-scene .bess-about-bio{width:52%;top:35%;left:20px}
   .bess-frame-scene .bess-about-bio h2{font-size:90px}
   .bess-frame-scene .bess-about-bio p{font-size:12px}
-  .bess-frame-scene .bess-new-release{left:20px;right:20px;bottom:5%;font-size:14px}
+  .bess-frame-scene .bess-new-release{left:20px;right:48px;bottom:5%;font-size:14px}
   .bess-frame-scene .bess-new-release strong{font-size:20px}
 }
-@media(prefers-reduced-motion:reduce){.bess-frame-section{height:auto}.bess-about.bess-frame-scene{position:relative}.bess-frame-video{display:none}.bess-frame-scene{background:url('/bess/portrait.webp') center/cover!important}}
+@media(prefers-reduced-motion:reduce){.bess-frame-section{height:auto}.bess-about.bess-frame-scene{position:relative}}
 
 .bess-home-hero{min-height:100vh;min-height:100svh;max-height:none;height:100svh;aspect-ratio:auto}
 .bess-frame-scene::after{content:'';position:absolute;inset:0;z-index:-1;background:rgb(0 0 0 / 40%);pointer-events:none}

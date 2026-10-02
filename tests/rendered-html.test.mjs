@@ -50,7 +50,8 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.match(homeHtml, /href="\/son"/);
   assert.match(homeHtml, /id="about"/);
   assert.match(homeHtml, /id="songs"/);
-  assert.match(homeHtml, /\/bess\/portrait.webp/);
+  assert.doesNotMatch(homeHtml, /poster="\/bess\/portrait.webp"/);
+  assert.match(homeHtml, /<b>STRASBOURG<\/b>/);
   assert.match(homeHtml, /class="bess-frame-section"/);
   assert.match(homeHtml, /src="\/bess\/framebyframe.mp4"/);
   assert.match(homeHtml, /<canvas[^>]+class="bess-hero-canvas"/);

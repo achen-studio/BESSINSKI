@@ -47,7 +47,7 @@ export function BessFrameByFrame({ children }: { children: ReactNode }) {
   return <section ref={root} className="bess-frame-section" id="about" aria-labelledby="about-heading">
     <noscript><style>{'.bess-frame-scene [data-frame-reveal]{opacity:1!important;visibility:visible!important}'}</style></noscript>
     <div className="bess-about bess-frame-scene">
-      <video ref={video} className="bess-frame-video" src="/bess/framebyframe.mp4" poster="/bess/portrait.webp" muted playsInline preload="auto" aria-hidden="true" />
+      <video ref={video} className="bess-frame-video" src="/bess/framebyframe.mp4" muted playsInline preload="auto" aria-hidden="true" />
       {children}
     </div>
   </section>;

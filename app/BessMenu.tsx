@@ -11,7 +11,7 @@ export function BessMenu({ children }: { children: ReactNode }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const opener = useRef<HTMLButtonElement>(null);
-  const [pastHero, setPastHero] = useState(false);
+  const [pastHero, setPastHero] = useState<boolean | null>(null);
   const [open, setOpen] = useState(false);
   const closing = useRef(false);
   const motion = useRef<Animation | null>(null);
@@ -19,9 +19,23 @@ export function BessMenu({ children }: { children: ReactNode }) {
   useEffect(() => {
     const hero = trigger.current?.closest('.bess-home-hero, .bess-song-hero');
     if (!hero) return;
-    const observer = new IntersectionObserver(([entry]) => setPastHero(entry.boundingClientRect.bottom <= 0), { threshold: 0 });
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setPastHero(hero.getBoundingClientRect().bottom <= 1);
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    schedule();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    const observer = new ResizeObserver(schedule);
     observer.observe(hero);
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
   }, []);
   const show = (button: HTMLButtonElement) => {
     opener.current = button;
@@ -62,7 +76,7 @@ export function BessMenu({ children }: { children: ReactNode }) {
   }, [close]);
   return <>
     <button ref={trigger} className="bess-menu-trigger" aria-label="MENU" aria-haspopup="dialog" aria-expanded={open} aria-controls={id} onClick={event => show(event.currentTarget)}><MenuLabel>MENU</MenuLabel></button>
-    {pastHero && createPortal(<button className="bess-site bess-menu-trigger bess-sticky-menu" aria-label="Ouvrir le menu" aria-haspopup="dialog" aria-expanded={open} aria-controls={id} onClick={event => show(event.currentTarget)}><MenuLabel>MENU</MenuLabel></button>, document.body)}
+    {pastHero !== null && createPortal(<button className="bess-site bess-menu-trigger bess-sticky-menu" data-visible={pastHero} aria-hidden={!pastHero} tabIndex={pastHero ? 0 : -1} aria-label="Ouvrir le menu" aria-haspopup="dialog" aria-expanded={open} aria-controls={id} onClick={event => show(event.currentTarget)}><MenuLabel>MENU</MenuLabel></button>, document.body)}
     <dialog ref={dialog} id={id} className="bess-site bess-menu-panel" aria-label="Menu principal" onCancel={event => { event.preventDefault(); close(); }} onClose={() => setOpen(false)}>
       <div className="bess-menu-bar"><button className="bess-menu-trigger" onClick={close} aria-label="Fermer le menu" title="Fermer le menu"><MenuLabel>CLOSE</MenuLabel></button></div>
       <div>{children}</div>
