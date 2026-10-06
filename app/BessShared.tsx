@@ -71,6 +71,6 @@ export function BessFooter({ dark = false, menu = false }: { dark?: boolean; men
   );
 }
 
-export function ListeningLinks() {
-  return <div className="bess-platforms" aria-label="Écouter Laisse Aller">{listeningLinks.map(link => <a key={link.name} href={link.href} target="_blank" rel="noreferrer"><span className="bess-platform-name"><Symbol name={link.icon} />{link.name}</span><span className="bess-platform-line" /><span>{link.action}</span><ArrowRight size={18} aria-hidden="true" /></a>)}</div>;
+export function ListeningLinks({ links = listeningLinks, song = "Laisse Aller" }: { links?: typeof listeningLinks; song?: string }) {
+  return <div className="bess-platforms" aria-label={`Écouter ${song}`}>{links.map(link => <a key={link.name} href={link.href} target="_blank" rel="noreferrer"><span className="bess-platform-name"><Symbol name={link.icon} />{link.name}</span><span className="bess-platform-line" /><span>{link.action}</span><ArrowRight size={18} aria-hidden="true" /></a>)}</div>;
 }

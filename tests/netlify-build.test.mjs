@@ -9,7 +9,7 @@ test("Netlify output routes pages to Nitro and preserves public assets", async (
   const metadata = JSON.parse(await readFile(new URL("../.netlify/functions-internal/nitro.json", import.meta.url), "utf8"));
   assert.equal(metadata.preset, "netlify");
 
-  for (const pathname of ["/", "/son"]) {
+  for (const pathname of ["/", "/son", "/son/sormoi2moi"]) {
     const response = await handler(new Request(`https://bessinski.test${pathname}`));
     assert.equal(response.status, 200);
     const html = await response.text();

@@ -23,7 +23,7 @@ export function BessHomeHero() {
 
   const prepareNavigation = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-    if (href === '/son' && hero.current) hero.current.dataset.navigating = 'true';
+    if (href.startsWith('/son') && hero.current) hero.current.dataset.navigating = 'true';
   };
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export function BessHomeHero() {
         }}
         onTouchCancel={() => { touchStart.current = null; }}
         onClickCapture={event => { if (swiped.current) { event.preventDefault(); swiped.current = false; } }}>
-        <a ref={cover} href={selected.href} onClick={event => prepareNavigation(event, selected.href)} style={{ viewTransitionName: selected.href === '/son' ? 'bess-song-cover' : 'none' }} className="bess-featured-image" aria-label={`Découvrir ${selected.title}`}><Photo name={selected.image} eager /></a>
+        <a ref={cover} href={selected.href} onClick={event => prepareNavigation(event, selected.href)} style={{ viewTransitionName: selected.href.startsWith('/son') ? 'bess-song-cover' : 'none' }} className="bess-featured-image" aria-label={`Découvrir ${selected.title}`}><Photo name={selected.image} eager /></a>
         <div className="bess-caption-stack">
           {heroSlides.map((slide, index) => <div key={slide.image} className={`bess-featured-caption bess-caption-${slide.layout}`} data-active={active === index} aria-hidden={active !== index} inert={active !== index}>
             <h1 aria-label={slide.title}><a href={slide.href} onClick={event => prepareNavigation(event, slide.href)}>{slide.lines.map((line, lineIndex) => <span className="bess-title-line" key={line}><span className={lineIndex > 0 ? "bess-title-secondary" : ""}><BessLetters text={line} /></span></span>)}</a></h1>
@@ -102,7 +102,7 @@ export function BessHomeHero() {
       <div className="bess-thumbnails" role="group" aria-label="Choisir un titre">
         {heroSlides.map((slide, index) => <button key={slide.image} onPointerEnter={event => { if (event.pointerType !== "touch") select(index); }} onFocus={() => select(index)} onClick={() => {
           select(index);
-          if (slide.href === '/son' && hero.current) hero.current.dataset.navigating = 'true';
+          if (slide.href.startsWith('/son') && hero.current) hero.current.dataset.navigating = 'true';
           window.location.assign(slide.href);
         }} onKeyDown={event => {
           if (event.key === "ArrowRight" || event.key === "ArrowLeft") {

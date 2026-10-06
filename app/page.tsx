@@ -24,7 +24,7 @@ export default function Home() {
           <div className="bess-about-top"><span data-frame-reveal>BASED IN <b>STRASBOURG</b></span><span data-frame-reveal>AND PARIS, FR<br />WORKING WORLDWIDE</span><div data-frame-reveal><strong>INDEPENDENT<br />MUSICIAN</strong><span>GUITARIST FOR @NAEKO_OFF</span></div></div>
           <div className="bess-about-bio">
             <h2 id="about-heading" data-frame-reveal><BessLetters text="BESS" /><br /><BessLetters text="INSKI" /><Symbol name="eye" /></h2>
-            <p data-frame-reveal>Entre indie pop et rock alternatif, Bessinski construit un univers porté par des guitares mélodiques et une voix à la sensibilité brute. Sa musique, empreinte de nostalgie, oscille entre douceur et énergie pour raconter les doutes et les élans du quotidien.</p>
+            <p data-frame-reveal lang="en">Artist and producer working at the intersection of alternative rock, melodic rap, and R&amp;B, BESSINSKI blends melancholic guitars with airy, atmospheric production. Both intimate and cinematic, his music explores the search for meaning and the contradictions of modern ambition.</p>
           </div>
           <div className="bess-frame-line" data-frame-reveal aria-hidden="true"><span className="bess-half-circle" /></div>
           <a className="bess-new-release" href={latestRelease.href} target="_blank" rel="noreferrer" data-frame-reveal><span className="bess-release-square"><ArrowUpRight aria-hidden="true" /></span><span>DERNIÈRE SORTIE<strong>JE REFAIS LA MÊME : 01.07</strong></span></a>
