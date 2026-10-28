@@ -72,7 +72,7 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.doesNotMatch(homeHtml, /NIGHT IS COMING/);
   assert.match(homeHtml, /aria-haspopup="dialog"/);
   assert.match(homeHtml, /href="https:\/\/a-chen.webflow.io\/"/);
-  for (const name of ["le-ciel", "la-nuit", "laisse-aller", "sormoi"]) {
+  for (const name of ["le-ciel", "laisse-aller", "sormoi"]) {
     assert.match(homeHtml, new RegExp(`/bess/${name}-background.webp`));
   }
 
@@ -82,7 +82,7 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.match(songHtml, /Laisse Aller \| BESSINSKI/);
   assert.match(songHtml, /id="lyrics"/);
   assert.match(songHtml, /Kevin Besse/);
-  assert.match(songHtml, /\/bess\/triptych-red.webp/);
+  assert.match(songHtml, /\/bess\/laisse-aller-oct28-5.webp/);
   assert.match(songHtml, /open.spotify.com\/album\/2DSVaQLK2v49kHwPdCb2Gs/);
   assert.match(songHtml, /youtube-nocookie.com\/embed\/j8LbANIbjDE/);
   assert.match(songHtml, /class="bess-song-emblems"/);

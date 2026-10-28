@@ -400,7 +400,7 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-home-hero .bess-title-line+.bess-title-line{margin-top:.045em}
 .bess-home-hero .bess-featured-meta{padding-top:12px}
 .bess-home-hero .bess-thumbnail-marker{font-size:16px}
-.bess-home-hero .bess-thumbnail-new{font-size:14px;padding:2px 5px}
+.bess-home-hero .bess-thumbnail-new{font-size:14px;padding:2px 5px;border-radius:4px 4px 0 0}
 @keyframes bess-logo-melt{0%,100%{opacity:1;filter:blur(0);transform:translateY(0)}35%{opacity:0;filter:blur(9px);transform:translateY(-.13em)}55%{opacity:0;filter:blur(7px);transform:translateY(.13em)}}
 .bess-song-preview{filter:blur(10px);transition:opacity .3s,filter .6s,transform .65s cubic-bezier(.22,.61,.36,1)}
 .bess-song-row:is(:hover,:focus-visible) .bess-song-preview{filter:blur(0)}
@@ -583,7 +583,7 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-home-hero{min-height:100vh;min-height:100svh;max-height:none;height:100svh;aspect-ratio:auto}
 .bess-frame-scene::after{content:'';position:absolute;inset:0;z-index:-1;background:rgb(0 0 0 / 40%);pointer-events:none}
 .bess-frame-scene [data-frame-reveal]{opacity:0;visibility:hidden}
-.bess-frame-scene .bess-about-top{top:5%;left:3%;right:4%;grid-template-columns:33% 30% 1fr;font-size:18px;gap:0}
+.bess-frame-scene .bess-about-top{top:5%;left:3%;right:4%;grid-template-columns:1fr 1fr 1.2fr;font-size:18px;gap:6%}
 .bess-frame-scene .bess-about-top>span:nth-child(2){text-align:left;padding-top:38px;padding-left:4%}
 .bess-frame-scene .bess-about-top>div{padding-top:88px}
 .bess-frame-scene .bess-about-top strong{font-size:48px;line-height:1.08;margin-bottom:24px}
@@ -591,7 +591,7 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-frame-scene .bess-about-bio{width:26%;max-width:300px;left:5.73%;top:34%}
 .bess-frame-scene .bess-about-bio h2{font-size:clamp(62px,49cqw,156px);line-height:.95;margin-bottom:8px;text-align:left}
 .bess-frame-scene .bess-about-bio p{font-size:18px;line-height:1.07;text-align:justify}
-.bess-frame-line{position:absolute;left:27%;bottom:17%;width:26%;height:20px;display:flex;align-items:center;justify-content:center}
+.bess-frame-line{position:absolute;left:5.73%;bottom:6%;width:26%;height:20px;display:flex;align-items:center;justify-content:center}
 .bess-frame-line::before{content:'';position:absolute;left:0;right:0;height:1px;background:currentColor}
 .bess-frame-line::after{content:'';position:absolute;right:0;border-top:3px solid transparent;border-bottom:3px solid transparent;border-right:6px solid currentColor}
 .bess-frame-line .bess-half-circle{width:20px;height:20px;z-index:1}
@@ -600,10 +600,10 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
   .bess-frame-scene .bess-about-bio{top:32%;max-width:240px}
   .bess-frame-scene .bess-about-bio h2{font-size:112px}
   .bess-frame-scene .bess-about-bio p{font-size:14px}
-  .bess-frame-line{left:34%;bottom:14%}
+  .bess-frame-line{left:5.73%;bottom:6%}
 }
 @media(max-width:600px){
-  .bess-frame-scene .bess-about-top{left:20px;right:48px;grid-template-columns:1fr 1fr;font-size:12px;gap:12px}
+  .bess-frame-scene .bess-about-top{left:20px;right:48px;grid-template-columns:1fr 1fr;font-size:12px;gap:24px}
   .bess-frame-scene .bess-about-top>span:nth-child(2){padding:0;text-align:right}
   .bess-frame-scene .bess-about-top>div{padding-top:12px}
   .bess-frame-scene .bess-about-top strong{font-size:24px;margin-bottom:12px}
@@ -611,6 +611,16 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
   .bess-frame-scene .bess-about-bio{left:20px;top:35%;width:52%;max-width:220px}
   .bess-frame-scene .bess-about-bio h2{font-size:90px}
   .bess-frame-scene .bess-about-bio p{font-size:12px}
-  .bess-frame-line{left:55%;width:35%;bottom:19%}
+  .bess-frame-line{left:20px;width:35%;bottom:2%}
 }
 @media(prefers-reduced-motion:reduce){.bess-frame-scene [data-frame-reveal]{opacity:1;visibility:visible}}
+
+.bess-song-credit-lines{white-space:pre-line}
+.bess-song-title-line{display:block}
+.bess-song-le-ciel-pleure-de-lor .bess-song-heading{top:25%}
+.bess-song-le-ciel-pleure-de-lor .bess-song-title-line:first-child{font-size:.82em}
+.bess-song-le-ciel-pleure-de-lor .bess-song-title-line:last-child{font-size:.48em;margin-top:.2em}
+.bess-lyric-feature{min-width:0}
+.bess-lyric-feature blockquote{white-space:pre-line;text-transform:uppercase;overflow-wrap:anywhere}
+.bess-media-image{aspect-ratio:var(--media-ratio);overflow:hidden}
+.bess-triptychs .bess-media-image img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}

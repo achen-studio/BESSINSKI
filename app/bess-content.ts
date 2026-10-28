@@ -7,6 +7,20 @@ export const listeningLinks = [
 ];
 
 export const latestRelease = { title: "Je refais la même", href: "https://snd.click/ovv4" };
+export const cielListeningLinks = [
+  { name: "Spotify", icon: "spotify", href: "https://open.spotify.com/track/3cfC2NlqFXONOaXkZKyb6e", action: "Play" },
+  { name: "Apple Music", icon: "apple", href: "https://music.apple.com/fr/album/le-ciel-pleure-de-lor/1508420117?i=1508420122", action: "Play" },
+  { name: "Deezer", icon: "deezer", href: "https://www.deezer.com/track/930517302", action: "Play" },
+  { name: "iTunes Store", icon: "itunes", href: "https://music.apple.com/fr/album/le-ciel-pleure-de-lor/1508420117?i=1508420122&app=itunes", action: "Buy" },
+  { name: "Tidal", icon: "tidal", href: "https://listen.tidal.com/track/137513876", action: "Play" },
+];
+export const reverListeningLinks = [
+  { name: "Spotify", icon: "spotify", href: "https://open.spotify.com/track/6nOFwxXZZ5wnhJYLYCkMrE", action: "Play" },
+  { name: "Apple Music", icon: "apple", href: "https://music.apple.com/fr/album/rever-tue/1780472268?i=1780472336", action: "Play" },
+  { name: "Deezer", icon: "deezer", href: "https://www.deezer.com/track/3099273251", action: "Play" },
+  { name: "iTunes Store", icon: "itunes", href: "https://music.apple.com/fr/album/rever-tue/1780472268?i=1780472336&app=itunes", action: "Buy" },
+  { name: "Tidal", icon: "tidal", href: "https://tidal.com/artist/9265915", action: "Artist" },
+];
 export const sormoiListeningLinks = [
   { name: "Spotify", icon: "spotify", href: "https://open.spotify.com/track/2mrF6TbREg7MSjh8ZoF9zl", action: "Play" },
   { name: "Apple Music", icon: "apple", href: "https://music.apple.com/fr/album/sormoi2moi/1763427790?i=1763427791", action: "Play" },
@@ -23,10 +37,10 @@ export const artistListeningLinks = [
 ];
 
 export const releases = [
-  { title: "Laisse Aller", image: "laisse-aller", href: "/son" },
-  { title: "La nuit est proche", image: "la-nuit", href: "https://music.apple.com/us/album/la-nuit-est-proche/1780472268" },
-  { title: "Le ciel pleure de l'or", image: "le-ciel", href: "https://music.apple.com/us/album/le-ciel-pleure-de-lor/1508420117" },
-  { title: "sormoi2moi", image: "sormoi", href: "/son/sormoi2moi" },
+  { title: "Laisse Aller", image: "laisse-aller-cover-oct28", href: "/son" },
+  { title: "Rêver tue", image: "rever-tue-cover-oct28", href: "/son/rever-tue" },
+  { title: "Le ciel pleure de l'or", image: "le-ciel-pleure-de-lor-cover-oct28", href: "/son/le-ciel-pleure-de-lor" },
+  { title: "sormoi2moi", image: "sormoi2moi-cover-oct28", href: "/son/sormoi2moi" },
 ];
 
 // Fill these with the artist's confirmed destinations before publication.

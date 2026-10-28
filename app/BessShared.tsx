@@ -39,7 +39,7 @@ export function BessFooter({ dark = false, menu = false }: { dark?: boolean; men
           <h2 id={`${prefix}songs-heading`} data-reveal data-letter-reveal><BessLetters text="MY SONGS" /></h2>
           <div className="bess-song-list" data-reveal>
           {releases.map(release => (
-            <a className="bess-song-row" key={release.title} href={release.href} target="_blank" rel="noreferrer">
+            <a className="bess-song-row" key={release.title} href={release.href}>
               <span className="bess-song-name">{release.title}</span>
               <span className="bess-song-preview" aria-hidden="true"><Photo name={release.image} /></span>
               <span className="bess-song-action"><RollingLabel>Play</RollingLabel><ArrowUpRight aria-hidden="true" /></span>

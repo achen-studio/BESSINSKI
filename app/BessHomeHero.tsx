@@ -92,7 +92,7 @@ export function BessHomeHero() {
         <div className="bess-caption-stack">
           {heroSlides.map((slide, index) => <div key={slide.image} className={`bess-featured-caption bess-caption-${slide.layout}`} data-active={active === index} aria-hidden={active !== index} inert={active !== index}>
             <h1 aria-label={slide.title}><a href={slide.href} onClick={event => prepareNavigation(event, slide.href)}>{slide.lines.map((line, lineIndex) => <span className="bess-title-line" key={line}><span className={lineIndex > 0 ? "bess-title-secondary" : ""}><BessLetters text={line} /></span></span>)}</a></h1>
-            <div className="bess-featured-meta"><span><BessLetters text="Réal. Kevin Besse" /></span><time dateTime="2024-06-21"><BessLetters text="21 JUIN 2024" /></time></div>
+            <div className="bess-featured-meta"><span><BessLetters text="Réal. Kevin Besse" /></span><time dateTime={slide.date}><BessLetters text={slide.dateLabel} /></time></div>
           </div>)}
         </div>
       </div>
