@@ -1,5 +1,6 @@
+/* Native navigation avoids the vinext client-router failure in the Netlify build. */
+/* eslint-disable @next/next/no-html-link-for-pages */
 import type { CSSProperties } from "react";
-import Link from "next/link";
 import { ArrowUp, ArrowUpRight, ArrowRight } from "lucide-react";
 import { artistLinks, artistListeningLinks, listeningLinks, releases } from "./bess-content";
 import { BessLetters } from "./BessLetters";
@@ -22,7 +23,7 @@ export function RollingLabel({ children }: { children: string }) {
 export function BessHeader() {
   return (
     <header className="bess-header">
-      <Link className="bess-wordmark" href="/" aria-label="Bessinski, accueil"><BessLetters text="BESSINSKI" /><Symbol name="eye" /></Link>
+      <a className="bess-wordmark" href="/" aria-label="Bessinski, accueil"><BessLetters text="BESSINSKI" /><Symbol name="eye" /></a>
       <BessMenu><BessFooter menu /></BessMenu>
     </header>
   );
@@ -33,8 +34,8 @@ export function BessFooter({ dark = false, menu = false }: { dark?: boolean; men
   return (
     <footer className={`bess-footer ${dark ? "bess-footer-dark" : ""}`}>
       <nav aria-label="Navigation principale" className="bess-footer-nav">
-        <Link href="/" className="bess-nav-link" data-reveal><RollingLabel>HOME</RollingLabel><ArrowUpRight aria-hidden="true" /></Link>
-        <Link href="/#about" className="bess-nav-link" data-reveal><RollingLabel>ABOUT</RollingLabel><ArrowUpRight aria-hidden="true" /></Link>
+        <a href="/" className="bess-nav-link" data-reveal><RollingLabel>HOME</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
+        <a href="/#about" className="bess-nav-link" data-reveal><RollingLabel>ABOUT</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
         <section id={`${prefix}songs`} className="bess-songs" aria-labelledby={`${prefix}songs-heading`}>
           <h2 id={`${prefix}songs-heading`} data-reveal data-letter-reveal><BessLetters text="MY SONGS" /></h2>
           <div className="bess-song-list" data-reveal>
