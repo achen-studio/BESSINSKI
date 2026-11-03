@@ -23,7 +23,7 @@ export function RollingLabel({ children }: { children: string }) {
 export function BessHeader() {
   return (
     <header className="bess-header">
-      <a className="bess-wordmark" href="/" aria-label="Bessinski, accueil"><BessLetters text="BESSINSKI" /><Symbol name="eye" /></a>
+      <a className="bess-wordmark" href="/" aria-label="Bessinski, accueil"><BessLetters text="BESSINSKI" /></a>
       <BessMenu><BessFooter menu /></BessMenu>
     </header>
   );
