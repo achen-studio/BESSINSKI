@@ -646,10 +646,6 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 }
 @media(max-width:600px){
   .bess-home-hero .bess-thumbnail-new{display:none}
-  .bess-home-hero .bess-featured h1{line-height:1.05;font-synthesis:none}
-  .bess-home-hero .bess-title-line+.bess-title-line{line-height:1.05;margin-top:0}
-  .bess-home-hero .bess-featured-caption .bess-letter-word>span{filter:none;transform:none;transition:opacity .25s ease}
-  .bess-home-hero .bess-featured-caption[data-active=true] .bess-letter-word>span{transition-delay:0s}
   .bess-frame-scene .bess-frame-line,.bess-frame-scene .bess-release-square{display:none}
   .bess-frame-scene .bess-new-release{left:auto;right:20px;width:40%;max-width:40%;gap:0}
   .bess-frame-scene .bess-new-release>span{min-width:0}
