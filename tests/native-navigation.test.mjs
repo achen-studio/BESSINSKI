@@ -6,6 +6,6 @@ test("header and menu navigation use native links without the client router", as
   const source = await readFile(new URL("../app/BessShared.tsx", import.meta.url), "utf8");
   assert.doesNotMatch(source, /from ["']next\/link["']/);
   assert.match(source, /<a className="bess-wordmark" href="\/"/);
-  assert.match(source, /<a href="\/"[^>]*><RollingLabel>HOME/);
-  assert.match(source, /<a href="\/#about"[^>]*><RollingLabel>ABOUT/);
+  assert.match(source, /<a href="\/"[^>]*><RollingLabel>ACCUEIL/);
+  assert.match(source, /<a href="\/#about"[^>]*><RollingLabel>À PROPOS/);
 });

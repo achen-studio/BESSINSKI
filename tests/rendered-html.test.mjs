@@ -46,7 +46,7 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   const home = await render(worker, "/");
   assert.equal(home.status, 200);
   const homeHtml = await home.text();
-  assert.match(homeHtml, /BESSINSKI \| Home/);
+  assert.match(homeHtml, /BESSINSKI \| Accueil/);
   assert.match(homeHtml, /href="\/son"/);
   assert.match(homeHtml, /id="about"/);
   assert.match(homeHtml, /id="songs"/);
@@ -54,20 +54,22 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.match(homeHtml, /<b>STRASBOURG<\/b>/);
   assert.match(homeHtml, /class="bess-frame-section"/);
   assert.match(homeHtml, /src="\/bess\/framebyframe.mp4"/);
+  assert.match(homeHtml, /poster="\/bess\/framebyframe-poster.jpg"/);
+  await access(new URL('../public/bess/framebyframe-poster.jpg', import.meta.url));
   assert.match(homeHtml, /<canvas[^>]+class="bess-hero-canvas"/);
   assert.equal([...homeHtml.matchAll(/aria-label="Afficher /g)].length, 4);
   assert.match(homeHtml, /aria-label="Afficher Laisse Aller" aria-pressed="true"/);
   assert.equal([...homeHtml.matchAll(/class="bess-song-preview"/g)].length, 8, "footer and menu each contain four release previews");
-  assert.match(homeHtml, /Listen to my music/);
+  assert.match(homeHtml, /Écouter ma musique/);
   assert.match(homeHtml, /href="https:\/\/www.instagram.com\/bessinski\/"/);
   assert.match(homeHtml, /href="https:\/\/www.youtube.com\/@bessinski"/);
-  assert.match(homeHtml, /CREATED BY A\.\/CHEN STUDIO/);
+  assert.match(homeHtml, /CRÉÉ PAR A\.\/CHEN STUDIO/);
   assert.match(homeHtml, /class="bess-song-name">Laisse Aller/);
   assert.doesNotMatch(homeHtml, /class="bess-song-name">Je refais/);
   assert.match(homeHtml, /tidal.com\/artist\/9265915/);
   assert.match(homeHtml, /open.spotify.com\/intl-fr\/artist\/0p1xkwZnfEiugIXYvwW2F8/);
   assert.match(homeHtml, /deezer.com\/fr\/artist\/13518497/);
-  assert.match(homeHtml, /CLOSE/);
+  assert.match(homeHtml, /FERMER/);
   assert.match(homeHtml, /data-letter-reveal/);
   assert.doesNotMatch(homeHtml, /NIGHT IS COMING/);
   assert.match(homeHtml, /aria-haspopup="dialog"/);
@@ -86,9 +88,13 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.match(songHtml, /open.spotify.com\/album\/2DSVaQLK2v49kHwPdCb2Gs/);
   assert.match(songHtml, /youtube-nocookie.com\/embed\/j8LbANIbjDE/);
   assert.match(songHtml, /class="bess-song-emblems"/);
+  assert.match(songHtml, /class="bess-conception"/);
+  for (const socialBlock of homeHtml.matchAll(/class="bess-social-names"[^>]*>(.*?)<\/div>/gs)) {
+    assert.doesNotMatch(socialBlock[1], /<svg/, 'social labels have no arrows');
+  }
   assert.match(songHtml, /class="bess-song-hero-shade"/);
   assert.match(songHtml, /class="bess-lyrics-lens"/);
-  assert.match(songHtml, /Lyrics :/);
+  assert.match(songHtml, /Paroles :/);
   assert.equal([...homeHtml.matchAll(/class="bess-back-top"/g)].length, 1);
   assert.doesNotMatch(songHtml, /<h2[^>]*>Paroles<\/h2>/);
   assert.match(songHtml, /href="https:\/\/tidal.com\/album\/368720031"/);

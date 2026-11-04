@@ -39,11 +39,11 @@ export function BessSongPage({ slug }: { slug: SongSlug }) {
         </section>
         <section className="bess-with" aria-labelledby="with-heading">
           <Photo name={song.images[1].name} alt={`${song.title}, portrait de tournage`} />
-          <div><h2 id="with-heading" data-reveal data-letter-reveal><BessLetters text="WI" /><br /><BessLetters text="TH" /></h2><p className="bess-song-credit-lines" data-reveal>{song.withCredits}</p></div>
+          <div><h2 id="with-heading" data-reveal data-letter-reveal><BessLetters text="AV" /><br /><BessLetters text="EC" /></h2><p className="bess-song-credit-lines" data-reveal>{song.withCredits}</p></div>
         </section>
         <figure className="bess-film-still" data-reveal><Photo name={song.images[2].name} alt={`Extrait de ${song.title}`} /></figure>
         <section className="bess-media" aria-labelledby="media-heading">
-          <div className="bess-media-copy"><h2 id="media-heading" data-reveal data-letter-reveal aria-label="MEDIA"><BessLetters text="M" /><br /><BessLetters text="ED" /><br /><BessLetters text="IA" /></h2><h3 data-reveal>Conception</h3><p data-reveal>{song.conception}</p></div>
+          <div className="bess-media-copy"><h2 id="media-heading" data-reveal data-letter-reveal aria-label="MEDIA"><BessLetters text="M" /><br /><BessLetters text="ED" /><br /><BessLetters text="IA" /></h2><div className="bess-conception"><h3 data-reveal>Conception</h3><p data-reveal>{song.conception}</p></div></div>
           <div className="bess-triptychs">{song.images.slice(3).map((image, index) => <div key={image.name} className="bess-media-image" style={{ "--media-ratio": image.ratio } as CSSProperties}><Photo name={image.name} alt={`${song.title}, photographie ${index + 1}`} /></div>)}</div>
         </section>
       </div>

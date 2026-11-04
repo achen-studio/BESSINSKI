@@ -466,8 +466,7 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 
 /* Keep the navigation control anchored to the header in both states. */
 .bess-menu-trigger:is(:hover,:focus-visible){text-decoration:none}
-.bess-menu-trigger:is(:hover,:focus-visible) .bess-rolling-label>span:first-child{transform:translateY(-110%)}
-.bess-menu-trigger:is(:hover,:focus-visible) .bess-rolling-label>span+span{transform:translateY(0)}
+.bess-menu-trigger .bess-rolling-label>span{transition:none}
 .bess-menu-bar{padding:30px 4.166667vw 16px;flex:none}
 .bess-menu-bar .bess-menu-trigger{font-size:28px;line-height:1.4;height:auto;min-height:44px;min-width:0;padding:0}
 .bess-menu-panel>div:last-child{min-height:calc(100% - 90px);display:flex}
@@ -632,3 +631,47 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-lyric-feature blockquote{white-space:pre-line;text-transform:uppercase;overflow-wrap:anywhere}
 .bess-media-image{aspect-ratio:var(--media-ratio);overflow:hidden}
 .bess-triptychs .bess-media-image img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}
+
+/* Keep the desktop contact layout while sharing a bottom row on phones. */
+.bess-footer-bottom>.bess-back-top{grid-column:2;grid-row:2}
+.bess-footer-bottom>.bess-credit{grid-row:1/3}
+.bess-footer-bottom>.bess-contact{grid-column:2;grid-row:1}
+.bess-footer-bottom>.bess-social-names{grid-column:3;grid-row:1}
+.bess-menu-bar .bess-menu-trigger:focus-visible{outline:0;text-decoration:underline;text-underline-offset:6px}
+@media(max-width:900px){
+  .bess-footer-bottom>.bess-contact{grid-column:1}
+  .bess-footer-bottom>.bess-social-names{grid-column:2}
+  .bess-footer-bottom>.bess-back-top{grid-column:1;grid-row:2;margin-top:0}
+  .bess-footer-bottom>.bess-credit{grid-column:1/-1;grid-row:3}
+}
+@media(max-width:600px){
+  .bess-home-hero .bess-thumbnail-new{display:none}
+  .bess-home-hero .bess-featured h1{line-height:1.05;font-synthesis:none}
+  .bess-home-hero .bess-title-line+.bess-title-line{line-height:1.05;margin-top:0}
+  .bess-home-hero .bess-featured-caption .bess-letter-word>span{filter:none;transform:none;transition:opacity .25s ease}
+  .bess-home-hero .bess-featured-caption[data-active=true] .bess-letter-word>span{transition-delay:0s}
+  .bess-frame-scene .bess-frame-line,.bess-frame-scene .bess-release-square{display:none}
+  .bess-frame-scene .bess-new-release{left:auto;right:20px;width:40%;max-width:40%;gap:0}
+  .bess-frame-scene .bess-new-release>span{min-width:0}
+  .bess-frame-scene .bess-new-release strong{white-space:normal;overflow-wrap:break-word}
+  .bess-footer-nav>.bess-songs+a{margin-top:24px}
+  .bess-footer .bess-listen-label{margin-top:48px}
+  .bess-footer-bottom{grid-template-columns:minmax(0,1fr) auto}
+  .bess-footer-bottom>.bess-back-top{grid-column:1;grid-row:2;align-self:center;font-size:14px;gap:6px}
+  .bess-footer-bottom>.bess-credit{grid-column:2;grid-row:2;align-self:center;justify-self:end;gap:0;padding:0;font-size:10px}
+  .bess-footer-bottom>.bess-credit>.bess-rolling-label{margin:0;font-size:inherit}
+  .bess-footer-bottom>.bess-credit>svg{display:none}
+  .bess-page-motion[data-motion=ready] .bess-footer-bottom>.bess-credit{opacity:1;transform:none}
+  .bess-menu-panel .bess-footer-bottom>.bess-credit{grid-column:1/-1}
+  .bess-site.bess-menu-panel{height:100svh;max-height:100svh}
+  .bess-media-copy{display:contents}
+  .bess-media-copy>h2{grid-row:1}
+  .bess-media>.bess-triptychs{grid-row:2}
+  .bess-media .bess-conception{grid-row:3}
+  .bess-media .bess-conception h3{margin-top:0}
+}
+@media(max-width:374px){
+  .bess-footer .bess-contact>.bess-email{font-size:14px;padding-right:0}
+  .bess-footer .bess-contact>.bess-email>svg{display:none}
+  .bess-footer-bottom>.bess-back-top{font-size:12px}
+}

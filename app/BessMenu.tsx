@@ -54,8 +54,8 @@ export function BessMenu({ children }: { children: ReactNode }) {
     const finish = () => { dialog.current?.close(); setOpen(false); closing.current = false; opener.current?.focus({ preventScroll: true }); };
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { finish(); return; }
     closing.current = true;
-    motion.current = dialog.current.animate([{ opacity: 1, filter: 'blur(0px)', transform: 'translateY(0) scale(1)' }, { opacity: 0, filter: 'blur(9px)', transform: 'translateY(-24px) scale(.97)' }], { duration: 300, easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' });
-    motion.current.finished.then(() => { motion.current?.cancel(); finish(); }).catch(() => {});
+    motion.current = dialog.current.animate([{ opacity: 1, clipPath: 'inset(0)', transform: 'translateY(0)' }, { opacity: 0, clipPath: 'inset(0 0 100% 0)', transform: 'translateY(-16px)' }], { duration: 420, easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' });
+    motion.current.finished.then(() => { finish(); motion.current?.cancel(); }).catch(() => {});
   }, []);
   useEffect(() => {
     const element = dialog.current;
@@ -78,7 +78,7 @@ export function BessMenu({ children }: { children: ReactNode }) {
     <button ref={trigger} className="bess-menu-trigger" aria-label="MENU" aria-haspopup="dialog" aria-expanded={open} aria-controls={id} onClick={event => show(event.currentTarget)}><MenuLabel>MENU</MenuLabel></button>
     {pastHero !== null && createPortal(<button className="bess-site bess-menu-trigger bess-sticky-menu" data-visible={pastHero} aria-hidden={!pastHero} tabIndex={pastHero ? 0 : -1} aria-label="Ouvrir le menu" aria-haspopup="dialog" aria-expanded={open} aria-controls={id} onClick={event => show(event.currentTarget)}><MenuLabel>MENU</MenuLabel></button>, document.body)}
     <dialog ref={dialog} id={id} className="bess-site bess-menu-panel" aria-label="Menu principal" onCancel={event => { event.preventDefault(); close(); }} onClose={() => setOpen(false)}>
-      <div className="bess-menu-bar"><button className="bess-menu-trigger" onClick={close} aria-label="Fermer le menu" title="Fermer le menu"><MenuLabel>CLOSE</MenuLabel></button></div>
+      <div className="bess-menu-bar"><button className="bess-menu-trigger" onClick={close} aria-label="Fermer le menu" title="Fermer le menu"><MenuLabel>FERMER</MenuLabel></button></div>
       <div>{children}</div>
     </dialog>
   </>;

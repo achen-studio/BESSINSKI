@@ -34,10 +34,10 @@ export function BessFooter({ dark = false, menu = false }: { dark?: boolean; men
   return (
     <footer className={`bess-footer ${dark ? "bess-footer-dark" : ""}`}>
       <nav aria-label="Navigation principale" className="bess-footer-nav">
-        <a href="/" className="bess-nav-link" data-reveal><RollingLabel>HOME</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
-        <a href="/#about" className="bess-nav-link" data-reveal><RollingLabel>ABOUT</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
+        <a href="/" className="bess-nav-link" data-reveal><RollingLabel>ACCUEIL</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
+        <a href="/#about" className="bess-nav-link" data-reveal><RollingLabel>À PROPOS</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
         <section id={`${prefix}songs`} className="bess-songs" aria-labelledby={`${prefix}songs-heading`}>
-          <h2 id={`${prefix}songs-heading`} data-reveal data-letter-reveal><BessLetters text="MY SONGS" /></h2>
+          <h2 id={`${prefix}songs-heading`} data-reveal data-letter-reveal><BessLetters text="MES MORCEAUX" /></h2>
           <div className="bess-song-list" data-reveal>
           {releases.map(release => (
             <a className="bess-song-row" key={release.title} href={release.href}>
@@ -51,22 +51,22 @@ export function BessFooter({ dark = false, menu = false }: { dark?: boolean; men
         <a href="mailto:hello@bessinski.com" className="bess-nav-link" data-reveal><RollingLabel>CONTACT</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
       </nav>
       <div className="bess-footer-bottom" id={`${prefix}contact`}>
-        <a className="bess-credit bess-email bess-nav-link" href="https://a-chen.webflow.io/" target="_blank" rel="noreferrer" data-reveal><RollingLabel>CREATED BY A./CHEN STUDIO 未來界</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
+        <a className="bess-credit bess-email bess-nav-link" href="https://a-chen.webflow.io/" target="_blank" rel="noreferrer" data-reveal><RollingLabel>CRÉÉ PAR A./CHEN STUDIO 未來界</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
         <div className="bess-contact" data-reveal>
           <a className="bess-email bess-nav-link" href="mailto:hello@bessinski.com"><RollingLabel>hello@bessinski.com</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
-          <p>Based in Strasbourg and Paris, France.<br />Available worldwide.</p>
-          <p className="bess-guitarist">Guitarist for @naeko_off</p>
-          <strong className="bess-listen-label">Listen to my music</strong>
+          <p>Basé à Strasbourg et Paris, France.<br />Disponible partout dans le monde.</p>
+          <p className="bess-guitarist">Guitariste de @naeko_off</p>
+          <strong className="bess-listen-label">Écouter ma musique</strong>
           <div className="bess-social-icons">
             {artistListeningLinks.map(link => (
               <a key={link.name} href={link.href} target="_blank" rel="noreferrer" aria-label={`Écouter sur ${link.name}`} title={link.name}>{link.icon ? <Symbol name={link.icon} /> : <span>TIDAL</span>}</a>
             ))}
           </div>
-          {!menu && <a className="bess-back-top" href="#top"><RollingLabel>BACK TO TOP</RollingLabel><ArrowUp aria-hidden="true" size={18} /></a>}
         </div>
         <div className="bess-social-names" data-reveal>
-          {([['YouTube', artistLinks.youtube], ['Instagram', artistLinks.instagram]] as const).map(([label, href]) => href ? <a key={label} href={href} target="_blank" rel="noreferrer"><RollingLabel>{label}</RollingLabel><ArrowUpRight aria-hidden="true" /></a> : <span key={label} title="Lien officiel à confirmer">{label}</span>)}
+          {([['YouTube', artistLinks.youtube], ['Instagram', artistLinks.instagram]] as const).map(([label, href]) => href ? <a key={label} href={href} target="_blank" rel="noreferrer"><RollingLabel>{label}</RollingLabel></a> : <span key={label} title="Lien officiel à confirmer">{label}</span>)}
         </div>
+        {!menu && <a className="bess-back-top" href="#top"><RollingLabel>RETOUR EN HAUT</RollingLabel><ArrowUp aria-hidden="true" size={18} /></a>}
       </div>
     </footer>
   );

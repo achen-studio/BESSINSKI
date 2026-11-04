@@ -19,7 +19,7 @@ export const reverListeningLinks = [
   { name: "Apple Music", icon: "apple", href: "https://music.apple.com/fr/album/rever-tue/1780472268?i=1780472336", action: "Play" },
   { name: "Deezer", icon: "deezer", href: "https://www.deezer.com/track/3099273251", action: "Play" },
   { name: "iTunes Store", icon: "itunes", href: "https://music.apple.com/fr/album/rever-tue/1780472268?i=1780472336&app=itunes", action: "Buy" },
-  { name: "Tidal", icon: "tidal", href: "https://tidal.com/artist/9265915", action: "Artist" },
+  { name: "Tidal", icon: "tidal", href: "https://tidal.com/artist/9265915", action: "Artiste" },
 ];
 export const sormoiListeningLinks = [
   { name: "Spotify", icon: "spotify", href: "https://open.spotify.com/track/2mrF6TbREg7MSjh8ZoF9zl", action: "Play" },

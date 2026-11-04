@@ -25,13 +25,34 @@ export function BessFrameByFrame({ children }: { children: ReactNode }) {
     gsap.registerPlugin(ScrollTrigger);
     const motion = gsap.matchMedia();
     let target = 0;
+    let priming = false;
+    let primed = false;
     const seek = () => {
-      if (!media.seeking && Number.isFinite(media.duration) && media.duration > 0) {
-        const time = target * Math.max(0, media.duration - 1 / 30);
+      if (!priming && !media.seeking && Number.isFinite(media.duration) && media.duration > 0) {
+        const time = Math.max(0.001, target * Math.max(0, media.duration - 1 / 30));
         if (Math.abs(media.currentTime - time) > 1 / 60) media.currentTime = time;
       }
     };
+    // iOS may defer decoding until playback is requested, even with preload=auto.
+    const prime = () => {
+      if (!alive || primed || priming) return;
+      priming = true;
+      media.muted = true;
+      void media.play().then(() => {
+        media.pause();
+        priming = false;
+        if (!alive) return;
+        primed = true;
+        seek();
+      }).catch(() => { priming = false; });
+    };
+    const visible = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) prime();
+    });
+    visible.observe(media);
+    section.addEventListener('touchstart', prime, { passive: true });
     media.addEventListener("loadedmetadata", seek);
+    media.addEventListener("loadeddata", seek);
     media.addEventListener("seeked", seek);
     motion.add("(prefers-reduced-motion: no-preference)", () => {
       const progress = { value: 0 };
@@ -42,12 +63,12 @@ export function BessFrameByFrame({ children }: { children: ReactNode }) {
       });
       return () => { timeline.scrollTrigger?.kill(); timeline.kill(); };
     }, section);
-    return () => { alive = false; window.removeEventListener('resize', fitTitle); motion.revert(); media.removeEventListener("loadedmetadata", seek); media.removeEventListener("seeked", seek); };
+    return () => { alive = false; visible.disconnect(); section.removeEventListener('touchstart', prime); media.pause(); window.removeEventListener('resize', fitTitle); motion.revert(); media.removeEventListener("loadedmetadata", seek); media.removeEventListener("loadeddata", seek); media.removeEventListener("seeked", seek); };
   }, []);
   return <section ref={root} className="bess-frame-section" id="about" aria-labelledby="about-heading">
     <noscript><style>{'.bess-frame-scene [data-frame-reveal]{opacity:1!important;visibility:visible!important}'}</style></noscript>
     <div className="bess-about bess-frame-scene">
-      <video ref={video} className="bess-frame-video" src="/bess/framebyframe.mp4" muted playsInline preload="auto" aria-hidden="true" />
+      <video ref={video} className="bess-frame-video" src="/bess/framebyframe.mp4" poster="/bess/framebyframe-poster.jpg" muted playsInline preload="auto" aria-hidden="true" />
       {children}
     </div>
   </section>;
