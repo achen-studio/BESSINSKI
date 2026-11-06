@@ -363,8 +363,6 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-home-hero .bess-featured-meta{margin-top:.055em;padding-top:9px}
 .bess-featured-caption[data-active=true] .bess-letter-word>span{transition-duration:.5s,.65s,.65s;transition-delay:calc(.06s + var(--letter-delay))}
 .bess-featured-caption[data-active=true] .bess-featured-meta .bess-letter-word>span{transition-duration:.4s,.5s,.5s;transition-delay:calc(.1s + var(--letter-delay))}
-.bess-wordmark:is(:hover,:focus-visible) .bess-letter-word>span,.bess-wordmark:is(:hover,:focus-visible)>.bess-symbol{animation:bess-logo-melt .8s var(--letter-delay,0s) both}
-@keyframes bess-logo-melt{0%,100%{opacity:1;filter:blur(0)}35%{opacity:0;filter:blur(9px)}}
 .bess-email.bess-nav-link{width:max-content;max-width:100%;padding-right:12px}
 .bess-social-icons{flex-wrap:nowrap;gap:clamp(12px,1.5vw,24px)}
 .bess-social-icons a{flex:none}
@@ -409,7 +407,6 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 @media(max-width:600px){
   .bess-home-hero .bess-thumbnail-new{left:0;right:0;border-radius:0;text-align:center}
 }
-@keyframes bess-logo-melt{0%,100%{opacity:1;filter:blur(0);transform:translateY(0)}35%{opacity:0;filter:blur(9px);transform:translateY(-.13em)}55%{opacity:0;filter:blur(7px);transform:translateY(.13em)}}
 .bess-song-preview{filter:blur(10px);transition:opacity .3s,filter .6s,transform .65s cubic-bezier(.22,.61,.36,1)}
 .bess-song-row:is(:hover,:focus-visible) .bess-song-preview{filter:blur(0)}
 
@@ -467,6 +464,18 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 /* Keep the navigation control anchored to the header in both states. */
 .bess-menu-trigger:is(:hover,:focus-visible){text-decoration:none}
 .bess-menu-trigger .bess-rolling-label>span{transition:none}
+@media(hover:hover){
+  .bess-menu-trigger .bess-rolling-label>span{transition:transform .55s cubic-bezier(.76,0,.24,1)}
+  .bess-menu-trigger:hover .bess-rolling-label>span:first-child{transform:translateY(-110%)}
+  .bess-menu-trigger:hover .bess-rolling-label>span+span{transform:translateY(0)}
+}
+.bess-header{view-transition-name:bess-header}
+::view-transition-group(bess-header){z-index:10;animation-duration:0s}
+::view-transition-old(bess-header){display:none}
+::view-transition-new(bess-header){animation:none}
+.bess-home-hero[data-navigating=true] .bess-caption-stack{z-index:1}
+.bess-home-hero[data-navigating=true] .bess-thumbnails,
+.bess-home-hero[data-navigating=true] .bess-carousel-arrow{opacity:0;transition:opacity .2s;pointer-events:none}
 .bess-menu-bar{padding:30px 4.166667vw 16px;flex:none}
 .bess-menu-bar .bess-menu-trigger{font-size:28px;line-height:1.4;height:auto;min-height:44px;min-width:0;padding:0}
 .bess-menu-panel>div:last-child{min-height:calc(100% - 90px);display:flex}

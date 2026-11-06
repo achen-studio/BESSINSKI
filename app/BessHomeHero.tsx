@@ -19,17 +19,56 @@ export function BessHomeHero() {
   const scene = useRef<ReturnType<typeof createHeroScene> | null>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const swiped = useRef(false);
+  const navigation = useRef<Animation[]>([]);
+  const navigating = useRef(false);
   const selected = heroSlides[active];
+
+  const navigate = (href: string) => {
+    if (navigating.current) return;
+    if (!hero.current || !cover.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.location.assign(href);
+      return;
+    }
+    navigating.current = true;
+    requestAnimationFrame(() => {
+      const element = hero.current;
+      const image = cover.current;
+      if (!element || !image) return;
+      const bounds = image.getBoundingClientRect();
+      element.dataset.navigating = 'true';
+      Object.assign(image.style, { position: 'fixed', left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, zIndex: '0' });
+      const expansion = image.animate([
+        { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, borderRadius: '5px' },
+        { left: '0px', top: '0px', width: `${window.innerWidth}px`, height: `${window.innerHeight}px`, borderRadius: '0px' },
+      ], { duration: 1000, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
+      navigation.current.push(expansion);
+      element.querySelectorAll<HTMLElement>('.bess-featured-caption[data-active=true] .bess-letter-word>span').forEach((letter, index) => {
+        navigation.current.push(letter.animate([
+          { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' },
+          { opacity: 0, filter: 'blur(10px)', transform: 'translateY(.75em)' },
+        ], { duration: 450, delay: 120 + Math.min(index * 22, 400), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' }));
+      });
+      void expansion.finished.then(() => window.location.assign(href)).catch(() => {});
+    });
+  };
 
   const prepareNavigation = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-    if (href.startsWith('/son') && hero.current) hero.current.dataset.navigating = 'true';
+    if (href.startsWith('/son')) { event.preventDefault(); navigate(href); }
   };
 
   useEffect(() => {
-    const reset = () => { if (hero.current) delete hero.current.dataset.navigating; };
+    const reset = () => {
+      navigation.current.forEach(animation => animation.cancel());
+      navigation.current = [];
+      navigating.current = false;
+      if (hero.current) delete hero.current.dataset.navigating;
+      if (cover.current) {
+        for (const property of ['position', 'left', 'top', 'width', 'height', 'z-index']) cover.current.style.removeProperty(property);
+      }
+    };
     window.addEventListener('pageshow', reset);
-    return () => window.removeEventListener('pageshow', reset);
+    return () => { window.removeEventListener('pageshow', reset); reset(); };
   }, []);
 
   useEffect(() => {
@@ -62,6 +101,7 @@ export function BessHomeHero() {
   }, []);
 
   const select = (index: number, direction?: number) => {
+    if (navigating.current) return;
     if (activeRef.current === index) return;
     activeRef.current = index;
     setActive(index);
@@ -102,8 +142,7 @@ export function BessHomeHero() {
       <div className="bess-thumbnails" role="group" aria-label="Choisir un titre">
         {heroSlides.map((slide, index) => <button key={slide.image} onPointerEnter={event => { if (event.pointerType !== "touch") select(index); }} onFocus={() => select(index)} onClick={() => {
           select(index);
-          if (slide.href.startsWith('/son') && hero.current) hero.current.dataset.navigating = 'true';
-          window.location.assign(slide.href);
+          navigate(slide.href);
         }} onKeyDown={event => {
           if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
             event.preventDefault();
