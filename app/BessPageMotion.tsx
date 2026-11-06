@@ -8,13 +8,10 @@ export function BessPageMotion({ children }: { children: ReactNode }) {
     const scope = root.current;
     if (!scope) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const elements = scope.querySelectorAll<HTMLElement>("[data-reveal], [data-hero-reveal]");
+    const elements = scope.querySelectorAll<HTMLElement>("[data-reveal]");
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          if (entry.target instanceof HTMLElement && entry.target.hasAttribute("data-hero-reveal")) {
-            entry.target.style.setProperty("--hero-delay", `${Math.max(0, 900 - performance.now())}ms`);
-          }
           entry.target.classList.add("is-revealed");
           observer.unobserve(entry.target);
         }

@@ -439,7 +439,8 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-song-credits time{font-size:clamp(22px,5.2cqw,64px);margin-top:18px;line-height:1.3}
 .bess-song-credits>span{font-size:clamp(13px,2.8cqw,28px);max-width:55%;margin-top:24px;line-height:1.1}
 
-@view-transition{navigation:auto}
+/* The home cover handles the transition before native navigation. */
+@view-transition{navigation:none}
 .bess-song-hero-image{animation:none}
 .bess-home-hero[data-navigating=true] .bess-featured-image img{opacity:1}
 .bess-home-hero[data-navigating=true] .bess-hero-canvas{opacity:0;transition:none}
@@ -503,7 +504,7 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 @media(prefers-reduced-motion:reduce){.bess-lyric-line{transition:none!important;transform:none!important}}
 
 /* Leave the cover expansion time to finish before revealing the destination copy. */
-.bess-song-heading .bess-letter-word>span{animation-delay:calc(.9s + var(--letter-delay))}
+.bess-song-heading .bess-letter-word>span{animation-delay:calc(.08s + var(--letter-delay))}
 .bess-song-credits .bess-letter-word>span{animation-delay:calc(1.05s + var(--letter-delay))}
 .bess-song-credits>span{animation-delay:1.15s}
 .bess-song-emblems{animation:bess-song-title .65s .9s both}
@@ -547,11 +548,10 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 
 .bess-song-hero-shade{background:rgb(0 0 0 / 20%);animation:bess-shade-in .65s .65s both ease-out}
 @keyframes bess-shade-in{from{opacity:0}to{opacity:1}}
-.bess-song-emblems,.bess-song-credits>span,.bess-song-credits .bess-letter-word>span{animation:none}
-.bess-page-motion[data-motion=ready] [data-hero-reveal]:not(.is-revealed){opacity:0}
-.bess-page-motion[data-motion=ready] .bess-song-emblems.is-revealed{animation:bess-song-title .65s var(--hero-delay,0ms) both}
-.bess-page-motion[data-motion=ready] .bess-song-credits .is-revealed .bess-letter-word>span{animation:bess-song-meta .6s calc(var(--hero-delay,0ms) + var(--letter-delay)) both cubic-bezier(.22,.61,.36,1)}
-.bess-page-motion[data-motion=ready] .bess-song-credits>span.is-revealed{animation:bess-menu-content .6s var(--hero-delay,0ms) both}
+/* Start hero text from the same CSS paint, without restarting on hydration. */
+.bess-song-emblems{animation:bess-song-title .65s .26s both}
+.bess-song-credits .bess-letter-word>span{animation:bess-song-meta .6s calc(.26s + var(--letter-delay)) both cubic-bezier(.22,.61,.36,1)}
+.bess-song-credits>span{animation:bess-menu-content .6s .26s both}
 .bess-with{grid-template-columns:49% 47%;gap:4%;align-items:stretch}
 .bess-with>img{height:100%;width:100%;min-height:0;object-fit:cover}
 .bess-with p{font-size:28px;line-height:1.15;margin-top:28px}
