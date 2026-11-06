@@ -10,10 +10,10 @@ export function Symbol({ name, className = "" }: { name: string; className?: str
   return <span aria-hidden="true" className={`bess-symbol ${className}`} style={{ "--symbol": `url(/bess/${name}.svg)` } as CSSProperties} />;
 }
 
-export function Photo({ name, alt = "", className = "", eager = false }: { name: string; alt?: string; className?: string; eager?: boolean }) {
+export function Photo({ name, alt = "", className = "", eager = false, decoding = "async" }: { name: string; alt?: string; className?: string; eager?: boolean; decoding?: "async" | "sync" | "auto" }) {
   // These local WebP assets are already resized and compressed from the Figma originals.
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={`/bess/${name}.webp`} srcSet={name.endsWith('-background') ? `/bess/${name}-960.webp 960w, /bess/${name}.webp 1920w, /bess/${name}-2560.webp 2560w` : undefined} sizes={name.endsWith('-background') ? "100vw" : undefined} alt={alt} className={className} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" draggable={false} />;
+  return <img src={`/bess/${name}.webp`} srcSet={name.endsWith('-background') ? `/bess/${name}-960.webp 960w, /bess/${name}.webp 1920w, /bess/${name}-2560.webp 2560w` : undefined} sizes={name.endsWith('-background') ? "100vw" : undefined} alt={alt} className={className} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding={decoding} draggable={false} />;
 }
 
 export function RollingLabel({ children }: { children: string }) {

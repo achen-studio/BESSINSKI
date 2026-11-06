@@ -503,8 +503,8 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 }
 @media(prefers-reduced-motion:reduce){.bess-lyric-line{transition:none!important;transform:none!important}}
 
-/* Leave the cover expansion time to finish before revealing the destination copy. */
-.bess-song-heading .bess-letter-word>span{animation-delay:calc(.08s + var(--letter-delay))}
+/* Native navigation follows the expansion; start the title on its first paint. */
+.bess-song-heading .bess-letter-word>span{animation-delay:var(--letter-delay)}
 .bess-song-credits .bess-letter-word>span{animation-delay:calc(1.05s + var(--letter-delay))}
 .bess-song-credits>span{animation-delay:1.15s}
 .bess-song-emblems{animation:bess-song-title .65s .9s both}

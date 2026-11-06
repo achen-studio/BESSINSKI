@@ -47,7 +47,7 @@ export function BessHomeHero() {
       const expansion = image.animate([
         { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, borderRadius: '5px' },
         { left: '0px', top: '0px', width: `${target.width}px`, height: `${target.height}px`, borderRadius: '0px' },
-      ], { duration: 1000, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
+      ], { duration: 650, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
       navigation.current.push(expansion);
       const caption = element.querySelector('.bess-featured-caption[data-active=true]');
       // Each text starts its own cascade, so credits overlap the title's exit.
