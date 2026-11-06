@@ -12,7 +12,8 @@ test("all four Figma song pages render their own video, lyrics and images", asyn
     const html = await response.text();
     assert.ok(html.includes(`/embed/${song.video}`), path);
     assert.ok(html.includes(song.date), path);
-    for (const image of song.images) {
+    assert.ok(html.includes(`/bess/${song.cover}.webp`), 'page keeps the home cover');
+    for (const image of song.images.slice(1)) {
       assert.ok(html.includes(`/bess/${image.name}.webp`), image.name);
       await access(new URL(`../public/bess/${image.name}.webp`, import.meta.url));
     }

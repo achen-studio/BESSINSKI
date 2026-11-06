@@ -35,18 +35,29 @@ export function BessHomeHero() {
       const image = cover.current;
       if (!element || !image) return;
       const bounds = image.getBoundingClientRect();
+      // Measure the destination's responsive hero, rather than an intermediate viewport size.
+      const destination = document.createElement('div');
+      destination.className = 'bess-song-hero';
+      Object.assign(destination.style, { position: 'fixed', top: '0', left: '0', visibility: 'hidden', pointerEvents: 'none' });
+      element.append(destination);
+      const target = destination.getBoundingClientRect();
+      destination.remove();
       element.dataset.navigating = 'true';
       Object.assign(image.style, { position: 'fixed', left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, zIndex: '0' });
       const expansion = image.animate([
         { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, borderRadius: '5px' },
-        { left: '0px', top: '0px', width: `${window.innerWidth}px`, height: `${window.innerHeight}px`, borderRadius: '0px' },
+        { left: '0px', top: '0px', width: `${target.width}px`, height: `${target.height}px`, borderRadius: '0px' },
       ], { duration: 1000, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
       navigation.current.push(expansion);
-      element.querySelectorAll<HTMLElement>('.bess-featured-caption[data-active=true] .bess-letter-word>span').forEach((letter, index) => {
-        navigation.current.push(letter.animate([
-          { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' },
-          { opacity: 0, filter: 'blur(10px)', transform: 'translateY(.75em)' },
-        ], { duration: 450, delay: 120 + Math.min(index * 22, 400), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' }));
+      const caption = element.querySelector('.bess-featured-caption[data-active=true]');
+      // Each text starts its own cascade, so credits overlap the title's exit.
+      caption?.querySelectorAll<HTMLElement>('h1, .bess-featured-meta>span, .bess-featured-meta>time').forEach(group => {
+        group.querySelectorAll<HTMLElement>('.bess-letter-word>span').forEach((letter, index) => {
+          navigation.current.push(letter.animate([
+            { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' },
+            { opacity: 0, filter: 'blur(10px)', transform: 'translateY(.75em)' },
+          ], { duration: 450, delay: 120 + Math.min(index * 22, 400), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' }));
+        });
       });
       void expansion.finished.then(() => window.location.assign(href)).catch(() => {});
     });
@@ -128,7 +139,7 @@ export function BessHomeHero() {
         }}
         onTouchCancel={() => { touchStart.current = null; }}
         onClickCapture={event => { if (swiped.current) { event.preventDefault(); swiped.current = false; } }}>
-        <a ref={cover} href={selected.href} onClick={event => prepareNavigation(event, selected.href)} style={{ viewTransitionName: selected.href.startsWith('/son') ? 'bess-song-cover' : 'none' }} className="bess-featured-image" aria-label={`Découvrir ${selected.title}`}><Photo name={selected.image} eager /></a>
+        <a ref={cover} href={selected.href} onClick={event => prepareNavigation(event, selected.href)} className="bess-featured-image" aria-label={`Découvrir ${selected.title}`}><Photo name={selected.image} eager /></a>
         <div className="bess-caption-stack">
           {heroSlides.map((slide, index) => <div key={slide.image} className={`bess-featured-caption bess-caption-${slide.layout}`} data-active={active === index} aria-hidden={active !== index} inert={active !== index}>
             <h1 aria-label={slide.title}><a href={slide.href} onClick={event => prepareNavigation(event, slide.href)}>{slide.lines.map((line, lineIndex) => <span className="bess-title-line" key={line}><span className={lineIndex > 0 ? "bess-title-secondary" : ""}><BessLetters text={line} /></span></span>)}</a></h1>

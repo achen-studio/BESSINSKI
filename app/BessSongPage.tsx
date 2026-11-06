@@ -18,7 +18,7 @@ export function BessSongPage({ slug }: { slug: SongSlug }) {
     <a className="bess-skip-link" href="#lyrics">Aller aux paroles</a>
     <BessPageMotion><main>
       <section className="bess-song-hero" aria-labelledby="song-title">
-        <Photo name={song.images[0].name} alt={`${song.title}, visuel du clip`} className="bess-song-hero-image" eager />
+        <Photo name={song.cover} alt={`${song.title}, visuel du clip`} className="bess-song-hero-image" eager />
         <div className="bess-song-hero-shade" aria-hidden="true" />
         <BessHeader />
         <div className="bess-song-heading">

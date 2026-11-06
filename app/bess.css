@@ -440,11 +440,14 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-song-credits>span{font-size:clamp(13px,2.8cqw,28px);max-width:55%;margin-top:24px;line-height:1.1}
 
 @view-transition{navigation:auto}
-.bess-song-hero-image{view-transition-name:bess-song-cover;animation:none}
+.bess-song-hero-image{animation:none}
 .bess-home-hero[data-navigating=true] .bess-featured-image img{opacity:1}
 .bess-home-hero[data-navigating=true] .bess-hero-canvas{opacity:0;transition:none}
-::view-transition-group(bess-song-cover){animation-duration:.85s;animation-timing-function:cubic-bezier(.22,.61,.36,1)}
-::view-transition-old(bess-song-cover),::view-transition-new(bess-song-cover){height:100%;object-fit:cover;mix-blend-mode:normal}
+/* The cover already reaches its final geometry before navigating. Keep it in
+   the page snapshot: extracting it again changes its clipping at the handoff. */
+::view-transition-old(root){animation:none;opacity:0}
+::view-transition-new(root){animation:none;opacity:1}
+.bess-song-hero-image{object-position:center}
 @media(max-width:600px){
   .bess-home-hero .bess-featured-meta{padding-top:10px}
   .bess-song-preview{filter:none}
@@ -489,8 +492,6 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 @media(max-width:600px){.bess-menu-bar{padding:20px 20px 16px}.bess-menu-bar .bess-menu-trigger{font-size:22px}.bess-menu-panel>div:last-child{min-height:calc(100% - 80px)}}
 
 /* The image expands without cross-fading; only the destination is shaded. */
-::view-transition-old(bess-song-cover){animation:none;opacity:0}
-::view-transition-new(bess-song-cover){animation:none;opacity:1}
 .bess-song-hero-shade{position:absolute;inset:0;background:rgb(0 0 0 / 25%);z-index:-1;pointer-events:none}
 .bess-song-credits>span{font-family:var(--body);font-weight:600}
 .bess-with p{font-family:var(--body);font-weight:400}

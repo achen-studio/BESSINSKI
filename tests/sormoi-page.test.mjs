@@ -12,7 +12,8 @@ test("sormoi2moi uses its Figma content, assets, video and music destinations", 
   assert.match(html, /Quitte à perdre la mémoire/);
   assert.match(html, /youtube-nocookie.com\/embed\/wZmVXoRGWPI/);
   assert.doesNotMatch(html, /cc_load_policy=1/);
-  for (const asset of [0, 1, 2, 3, 4, 5]) {
+  assert.ok(html.includes('/bess/sormoi2moi-cover-oct28.webp'));
+  for (const asset of [1, 2, 3, 4, 5]) {
     assert.ok(html.includes(`/bess/sormoi2moi-oct28-${asset}.webp`));
   }
   for (const id of ["2mrF6TbREg7MSjh8ZoF9zl", "1763427791", "3099273221", "381434596", "app=itunes"]) {
