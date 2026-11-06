@@ -54,7 +54,12 @@ export function createHeroScene(canvas: HTMLCanvasElement, hero: HTMLElement, co
   let loaded = false;
   let visible = true;
   let lost = false;
+  let sized = false;
+  let presented = false;
+  let failed = false;
   let current = initial;
+  const fail = () => { failed = true; presented = false; ready(false); };
+  renderer.debug.onShaderError = fail;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
   const materials = sources.map(() => new THREE.ShaderMaterial({
     vertexShader, fragmentShader, transparent: true, side: THREE.DoubleSide,
@@ -72,7 +77,7 @@ export function createHeroScene(canvas: HTMLCanvasElement, hero: HTMLElement, co
     return mesh;
   });
   const render = () => {
-    if (disposed || !loaded || !visible || lost || document.hidden) return;
+    if (disposed || failed || !loaded || !sized || !visible || lost || document.hidden) return;
     motion.sheets.forEach((sheet, index) => {
       materials[index].uniforms.uFold.value = sheet.fold;
       materials[index].uniforms.uSide.value = sheet.side;
@@ -80,14 +85,22 @@ export function createHeroScene(canvas: HTMLCanvasElement, hero: HTMLElement, co
       meshes[index].visible = sheet.opacity > 0.001;
       meshes[index].renderOrder = index === current ? 1 : 0;
     });
-    renderer.render(scene, camera);
+    try {
+      renderer.render(scene, camera);
+      // Publish readiness only after decoded textures have produced a draw at
+      // the cover's actual size. Mounting/loading alone is not a rendered frame.
+      if (!presented && !failed && !renderer.getContext().isContextLost() && renderer.info.render.calls > 0) {
+        presented = true;
+        ready(true);
+      }
+    } catch { fail(); }
   };
   const motion = createHeroMotion(sources.length, initial, render, arrive);
   const resize = () => {
     if (disposed) return;
     const bounds = hero.getBoundingClientRect();
     const card = cover.getBoundingClientRect();
-    if (!bounds.width || !bounds.height) return;
+    if (!bounds.width || !bounds.height || !card.width || !card.height) { sized = false; return; }
     renderer.setSize(bounds.width, bounds.height, false);
     camera.aspect = bounds.width / bounds.height;
     camera.position.z = Math.max(bounds.width, 920) * 1.62;
@@ -104,6 +117,7 @@ export function createHeroScene(canvas: HTMLCanvasElement, hero: HTMLElement, co
         uniforms.uCrop.value.set(Math.min(1, 1 / ratio), Math.min(1, ratio));
       }
     });
+    sized = true;
     render();
   };
   const observer = new ResizeObserver(resize);
@@ -118,14 +132,17 @@ export function createHeroScene(canvas: HTMLCanvasElement, hero: HTMLElement, co
   document.addEventListener("visibilitychange", updateVisibility);
   const onPreference = () => { if (reduced.matches) motion.select(current, true); };
   reduced.addEventListener("change", onPreference);
-  const onLost = (event: Event) => { event.preventDefault(); lost = true; ready(false); motion.pause(); };
-  const onRestored = () => { lost = false; resize(); updateVisibility(); ready(loaded); };
+  const onLost = (event: Event) => { event.preventDefault(); lost = true; presented = false; ready(false); motion.pause(); };
+  const onRestored = () => { lost = false; resize(); updateVisibility(); };
   canvas.addEventListener("webglcontextlost", onLost);
   canvas.addEventListener("webglcontextrestored", onRestored);
 
   const loader = new THREE.TextureLoader();
   Promise.all(sources.map(async (source, index) => {
     const texture = await loader.loadAsync(source);
+    try {
+      await (texture.image as HTMLImageElement).decode();
+    } catch (error) { texture.dispose(); throw error; }
     if (disposed) { texture.dispose(); return; }
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.minFilter = THREE.LinearFilter;
@@ -134,11 +151,10 @@ export function createHeroScene(canvas: HTMLCanvasElement, hero: HTMLElement, co
     materials[index].uniforms.uTexture.value = texture;
   })).then(() => {
     if (disposed) return;
-    loaded = true;
     motion.select(current, true);
+    loaded = true;
     resize();
-    ready(true);
-  }).catch(() => { if (!disposed) ready(false); });
+  }).catch(() => { if (!disposed) fail(); });
   resize();
 
   return {

@@ -158,7 +158,7 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-hero-backdrop{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:clip-path}
 .bess-hero-backdrop img{will-change:transform}
 .bess-hero-shade{background:rgb(0 0 0 / 36%)}
-.bess-hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .2s;z-index:0}
+.bess-hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;z-index:0}
 .bess-home-hero[data-renderer=webgl] .bess-hero-canvas{opacity:1}
 .bess-featured{z-index:1}
 .bess-featured-image{border-radius:5px;overflow:hidden}
@@ -635,8 +635,8 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-song-credit-lines{white-space:pre-line}
 .bess-song-title-line{display:block}
 .bess-song-le-ciel-pleure-de-lor .bess-song-heading{top:25%}
-.bess-song-le-ciel-pleure-de-lor .bess-song-title-line:first-child{font-size:.82em}
-.bess-song-le-ciel-pleure-de-lor .bess-song-title-line:last-child{font-size:.48em;margin-top:.2em}
+.bess-song-le-ciel-pleure-de-lor .bess-song-title-line:first-child{font-size:1.0992em}
+.bess-song-le-ciel-pleure-de-lor .bess-song-title-line:last-child{font-size:.48em;margin-top:0}
 .bess-lyric-feature{min-width:0}
 .bess-lyric-feature blockquote{white-space:pre-line;text-transform:uppercase;overflow-wrap:anywhere}
 .bess-media-image{aspect-ratio:var(--media-ratio);overflow:hidden}

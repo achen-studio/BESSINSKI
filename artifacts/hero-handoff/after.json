@@ -1,0 +1,130 @@
+[
+  {
+    "t": 89,
+    "type": "image-mounted",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp"
+  },
+  {
+    "t": 89,
+    "type": "decode-start",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp"
+  },
+  {
+    "t": 89,
+    "type": "canvas-mounted"
+  },
+  {
+    "t": 89.20000004768372,
+    "type": "visibility",
+    "renderer": "image",
+    "image": "1",
+    "canvas": "0",
+    "complete": true,
+    "drawn": false,
+    "navigating": false
+  },
+  {
+    "t": 100.5,
+    "type": "decode-end",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp"
+  },
+  {
+    "t": 280,
+    "type": "image-load",
+    "src": "http://127.0.0.1:4174/bess/le-ciel-pleure-de-lor-cover-oct28.webp",
+    "connected": false
+  },
+  {
+    "t": 280.09999990463257,
+    "type": "decode-start",
+    "src": "http://127.0.0.1:4174/bess/le-ciel-pleure-de-lor-cover-oct28.webp"
+  },
+  {
+    "t": 280.09999990463257,
+    "type": "image-load",
+    "src": "http://127.0.0.1:4174/bess/rever-tue-cover-oct28.webp",
+    "connected": false
+  },
+  {
+    "t": 280.09999990463257,
+    "type": "decode-start",
+    "src": "http://127.0.0.1:4174/bess/rever-tue-cover-oct28.webp"
+  },
+  {
+    "t": 280.2000000476837,
+    "type": "image-load",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp",
+    "connected": false
+  },
+  {
+    "t": 280.2000000476837,
+    "type": "decode-start",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp"
+  },
+  {
+    "t": 280.2000000476837,
+    "type": "image-load",
+    "src": "http://127.0.0.1:4174/bess/sormoi2moi-cover-oct28.webp",
+    "connected": false
+  },
+  {
+    "t": 280.2000000476837,
+    "type": "decode-start",
+    "src": "http://127.0.0.1:4174/bess/sormoi2moi-cover-oct28.webp"
+  },
+  {
+    "t": 315.2999999523163,
+    "type": "decode-end",
+    "src": "http://127.0.0.1:4174/bess/le-ciel-pleure-de-lor-cover-oct28.webp"
+  },
+  {
+    "t": 320.7000000476837,
+    "type": "decode-end",
+    "src": "http://127.0.0.1:4174/bess/rever-tue-cover-oct28.webp"
+  },
+  {
+    "t": 324.89999985694885,
+    "type": "decode-end",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp"
+  },
+  {
+    "t": 340.09999990463257,
+    "type": "decode-end",
+    "src": "http://127.0.0.1:4174/bess/sormoi2moi-cover-oct28.webp"
+  },
+  {
+    "t": 346.2999999523163,
+    "type": "texture-upload",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp"
+  },
+  {
+    "t": 363,
+    "type": "first-WebGL-draw",
+    "pixel": [
+      14,
+      8,
+      5,
+      255
+    ]
+  },
+  {
+    "t": 363.7000000476837,
+    "type": "visibility",
+    "renderer": "image",
+    "image": "1",
+    "canvas": "0",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 372.59999990463257,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "1",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  }
+]

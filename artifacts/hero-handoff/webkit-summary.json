@@ -1,0 +1,50 @@
+[
+  {
+    "name": "390-normal-cold",
+    "dips": 0,
+    "premature": 0,
+    "sameAsset": true
+  },
+  {
+    "name": "390-normal-warm",
+    "dips": 0,
+    "premature": 0,
+    "sameAsset": true
+  },
+  {
+    "name": "390-slow-cold",
+    "dips": 0,
+    "premature": 0,
+    "sameAsset": true
+  },
+  {
+    "name": "390-no-webgl-cold",
+    "dips": 0,
+    "premature": 0,
+    "sameAsset": true
+  },
+  {
+    "name": "1440-normal-cold",
+    "dips": 0,
+    "premature": 0,
+    "sameAsset": true
+  },
+  {
+    "name": "1440-normal-warm",
+    "dips": 0,
+    "premature": 0,
+    "sameAsset": true
+  },
+  {
+    "name": "1440-slow-cold",
+    "dips": 0,
+    "premature": 0,
+    "sameAsset": true
+  },
+  {
+    "name": "1440-no-webgl-cold",
+    "dips": 0,
+    "premature": 0,
+    "sameAsset": true
+  }
+]

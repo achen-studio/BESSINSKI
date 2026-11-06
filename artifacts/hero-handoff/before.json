@@ -1,0 +1,195 @@
+[
+  {
+    "t": 88.09999990463257,
+    "type": "image-mounted",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp"
+  },
+  {
+    "t": 88.09999990463257,
+    "type": "decode-start",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp"
+  },
+  {
+    "t": 88.09999990463257,
+    "type": "canvas-mounted"
+  },
+  {
+    "t": 88.19999980926514,
+    "type": "visibility",
+    "renderer": "image",
+    "image": "1",
+    "canvas": "0",
+    "complete": true,
+    "drawn": false,
+    "navigating": false
+  },
+  {
+    "t": 99.59999990463257,
+    "type": "decode-end",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp"
+  },
+  {
+    "t": 245.39999985694885,
+    "type": "image-load",
+    "src": "http://127.0.0.1:4174/bess/le-ciel-pleure-de-lor-cover-oct28.webp",
+    "connected": false
+  },
+  {
+    "t": 245.5,
+    "type": "image-load",
+    "src": "http://127.0.0.1:4174/bess/rever-tue-cover-oct28.webp",
+    "connected": false
+  },
+  {
+    "t": 245.5,
+    "type": "image-load",
+    "src": "http://127.0.0.1:4174/bess/laisse-aller-cover-oct28.webp",
+    "connected": false
+  },
+  {
+    "t": 245.5,
+    "type": "image-load",
+    "src": "http://127.0.0.1:4174/bess/sormoi2moi-cover-oct28.webp",
+    "connected": false
+  },
+  {
+    "t": 269.09999990463257,
+    "type": "first-WebGL-draw",
+    "pixel": [
+      17,
+      8,
+      6,
+      255
+    ]
+  },
+  {
+    "t": 278.5,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 286,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.0706944",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 303.59999990463257,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.220854",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 319.5,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.407959",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 336.09999990463257,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.575714",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 352.7999999523163,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.705723",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 370.89999985694885,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.802155",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 386.89999985694885,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.873479",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 402.89999985694885,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.924609",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 419.19999980926514,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.960372",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 436.39999985694885,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.983562",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 453.69999980926514,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "0.996104",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  },
+  {
+    "t": 470.19999980926514,
+    "type": "visibility",
+    "renderer": "webgl",
+    "image": "0",
+    "canvas": "1",
+    "complete": true,
+    "drawn": true,
+    "navigating": false
+  }
+]
