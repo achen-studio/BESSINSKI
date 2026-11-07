@@ -1,7 +1,7 @@
 /* Native navigation avoids the vinext client-router failure in the Netlify build. */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { CSSProperties } from "react";
-import { ArrowUp, ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowUp, ArrowUpRight, ArrowRight, FaceSlightlySmiling } from "lucide-react";
 import { artistLinks, artistListeningLinks, listeningLinks, releases } from "./bess-content";
 import { BessLetters } from "./BessLetters";
 import { BessMenu } from "./BessMenu";
@@ -37,7 +37,7 @@ export function BessFooter({ dark = false, menu = false }: { dark?: boolean; men
         <a href="/" className="bess-nav-link" data-reveal><RollingLabel>ACCUEIL</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
         <a href="/#about" className="bess-nav-link" data-reveal><RollingLabel>À PROPOS</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
         <section id={`${prefix}songs`} className="bess-songs" aria-labelledby={`${prefix}songs-heading`}>
-          <h2 id={`${prefix}songs-heading`} data-reveal data-letter-reveal><BessLetters text="MES MORCEAUX" /></h2>
+          <h2 id={`${prefix}songs-heading`} data-reveal data-letter-reveal><BessLetters text="MES SONS" /></h2>
           <div className="bess-song-list" data-reveal>
           {releases.map(release => (
             <a className="bess-song-row" key={release.title} href={release.href}>
@@ -51,11 +51,15 @@ export function BessFooter({ dark = false, menu = false }: { dark?: boolean; men
         <a href="mailto:hello@bessinski.com" className="bess-nav-link" data-reveal><RollingLabel>CONTACT</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
       </nav>
       <div className="bess-footer-bottom" id={`${prefix}contact`}>
-        <a className="bess-credit bess-email bess-nav-link" href="https://a-chen.webflow.io/" target="_blank" rel="noreferrer" data-reveal><RollingLabel>CRÉÉ PAR A./CHEN STUDIO 未來界</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
+        <div className="bess-creator" data-reveal>
+          <FaceSlightlySmiling size={24} aria-hidden="true" />
+          <p>Want a site this cool?<br />Contact me.</p>
+          <a className="bess-creator-email bess-email bess-nav-link" href="mailto:achen.creation@gmail.com"><RollingLabel>achen.creation@gmail.com</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
+          <a className="bess-credit bess-email bess-nav-link" href="https://a-chen.webflow.io/" target="_blank" rel="noreferrer"><RollingLabel>CREATED BY A./CHEN STUDIO</RollingLabel>{" "}<RollingLabel>未來界</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
+        </div>
         <div className="bess-contact" data-reveal>
-          <a className="bess-email bess-nav-link" href="mailto:hello@bessinski.com"><RollingLabel>hello@bessinski.com</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
           <p>Basé à Strasbourg et Paris, France.<br />Disponible partout dans le monde.</p>
-          <p className="bess-guitarist">Guitariste de @naeko_off</p>
+          <p className="bess-guitarist">Guitariste de <a href="https://www.instagram.com/naeko_off/?hl=en" target="_blank" rel="noopener noreferrer">@naeko_off</a></p>
           <strong className="bess-listen-label">Écouter ma musique</strong>
           <div className="bess-social-icons">
             {artistListeningLinks.map(link => (

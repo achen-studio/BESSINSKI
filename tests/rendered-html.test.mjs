@@ -63,7 +63,12 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.match(homeHtml, /Écouter ma musique/);
   assert.match(homeHtml, /href="https:\/\/www.instagram.com\/bessinski\/"/);
   assert.match(homeHtml, /href="https:\/\/www.youtube.com\/@bessinski"/);
-  assert.match(homeHtml, /CRÉÉ PAR A\.\/CHEN STUDIO/);
+  assert.match(homeHtml, /CREATED BY A\.\/CHEN STUDIO/);
+  assert.match(homeHtml, /Want a site this cool\?/);
+  assert.match(homeHtml, /mailto:achen\.creation@gmail\.com/);
+  assert.match(homeHtml, /MES SONS/);
+  assert.doesNotMatch(homeHtml, /MES MORCEAUX/);
+  assert.doesNotMatch(homeHtml, /class="bess-contact-name"/);
   assert.match(homeHtml, /class="bess-song-name">Laisse Aller/);
   assert.doesNotMatch(homeHtml, /class="bess-song-name">Je refais/);
   assert.match(homeHtml, /tidal.com\/artist\/9265915/);
