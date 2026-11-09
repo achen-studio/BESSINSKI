@@ -77,25 +77,31 @@ export async function mountScatteredLyrics(root: HTMLDivElement, effect: "scatte
       const funnelDistance = distance/100;
       const funnel = active ? Math.max(0,1-funnelDistance) : 0;
       const gravity = funnel*funnel*(3-2*funnel)*amount;
+      const fallLength = 320+letter.seed*180;
       if(effect === "gravity") {
         letter.wet = gravity>.08 ? letter.wet+dt : 0;
         if(active && !letter.falling && letter.wet>.08+letter.seed*.4) {
-          letter.falling=true;letter.speed=30+letter.seed*50;letter.drift=-dx*.3;
+          letter.falling=true;letter.speed=30+letter.seed*50;letter.drift=-dx;
         }
         if(!active) { letter.falling=false;letter.speed=0;letter.wet=0; }
-        tx = letter.falling ? letter.drift : 0;
+        tx = letter.falling ? letter.drift*Math.min(1,letter.dy/fallLength) : 0;
         ty = 0;
       }
       letter.dx += (tx-letter.dx)*follow;
       if(effect === "gravity" && letter.falling) {
-        letter.speed=Math.min(1500,letter.speed+980*dt);
+        letter.speed=Math.min(1200,letter.speed+(420+letter.seed*240)*dt);
         const bottom=Math.max(0,height-fontSize/2-letter.y);
         letter.dy=Math.min(bottom,letter.dy+letter.speed*dt);
+        // Longer, staggered arms converge into a loose stream rather than a straight line.
+        const progress=Math.min(1,letter.dy/fallLength);
+        const offset=(letter.seed-.5)*24*progress+Math.sin(letter.dy*.018+phase)*10*Math.sin(progress*Math.PI);
+        letter.dx=letter.drift*progress+offset;
+        letter.dx=Math.max(fontSize/2-letter.x,Math.min(width-fontSize/2-letter.x,letter.dx));
         if(letter.dy>=bottom) { letter.speed=0;landed++; }
       } else letter.dy += (ty-letter.dy)*follow;
       const targetAngle = effect === "rotate"
         ? (active ? Math.atan2(pointerY-letter.y,pointerX-letter.x)+Math.PI/2 : 0)
-        : effect === "gravity" ? (letter.falling ? (letter.seed-.5)*.7 : 0)
+        : effect === "gravity" ? (letter.falling ? (Math.sign(letter.drift)*Math.PI/4+(letter.seed-.5)*.3)*(1-Math.min(1,letter.dy/fallLength)) : 0)
         : (Math.sin(clock*.7+phase)*.65+(letter.seed-.5)*1.2)*influence;
       const angleDelta = targetAngle-letter.angle;
       letter.angle += (effect === "rotate" ? Math.atan2(Math.sin(angleDelta),Math.cos(angleDelta)) : angleDelta)*follow;
