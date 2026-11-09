@@ -441,6 +441,9 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 
 /* The home cover handles the transition before native navigation. */
 @view-transition{navigation:none}
+html:has(.bess-home-hero[data-navigating=true]),
+body:has(.bess-home-hero[data-navigating=true]){overflow:hidden!important;overscroll-behavior:none}
+.bess-home-hero[data-navigating=true]{overflow:visible;z-index:20}
 .bess-song-hero-image{animation:none}
 .bess-home-hero[data-navigating=true] .bess-featured-image img{opacity:1}
 .bess-home-hero[data-navigating=true] .bess-hero-canvas{opacity:0;transition:none}
@@ -601,6 +604,8 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 
 .bess-home-hero{min-height:100vh;min-height:100svh;max-height:none;height:100svh;aspect-ratio:auto}
 .bess-frame-scene::after{content:'';position:absolute;inset:0;z-index:-1;background:rgb(0 0 0 / 40%);pointer-events:none}
+.bess-frame-scene::before{content:'';position:absolute;inset:0;z-index:10;background:var(--red);opacity:0;pointer-events:none}
+.bess-site:has(.bess-home-hero[data-navigating=true]) .bess-frame-scene::before{opacity:1;transition:opacity .65s cubic-bezier(.22,.61,.36,1)}
 .bess-frame-scene [data-frame-reveal]{opacity:0;visibility:hidden}
 .bess-frame-scene .bess-about-top{top:5%;left:3%;right:4%;grid-template-columns:1fr 1fr 1.2fr;font-size:18px;gap:6%}
 .bess-frame-scene .bess-about-top>span:nth-child(2){text-align:left;padding-top:38px;padding-left:4%}
