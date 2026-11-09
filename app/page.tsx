@@ -7,8 +7,8 @@ import { BessLetters } from "./BessLetters";
 import "./bess.css";
 
 export const metadata: Metadata = {
-  title: "BESSINSKI | Accueil",
-  description: "Bessinski, musicien indépendant. Un univers entre indie pop et rock alternatif. Musique, clips et nouvelles sorties.",
+  title: "BESSINSKI — Site officiel",
+  description: "Entre indie pop et rock alternatif, découvrez l’univers de Bessinski : des guitares mélodiques, une voix brute, des chansons et des clips à explorer.",
 };
 
 export default function Home() {

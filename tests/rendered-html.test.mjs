@@ -28,7 +28,7 @@ test("server-renders the gallery and the final V13 route", async () => {
     assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
     const html = await response.text();
-    assert.match(html, /<title>Album Archive/);
+    assert.match(html, /<title>BESSINSKI — Site officiel/);
     assert.match(html, /ALBUM ARCHIVE/);
     assert.match(html, /<canvas[^>]+aria-label="Galerie /);
     assert.doesNotMatch(html, /Your site is taking shape|Building your site/);
@@ -46,7 +46,7 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   const home = await render(worker, "/");
   assert.equal(home.status, 200);
   const homeHtml = await home.text();
-  assert.match(homeHtml, /BESSINSKI \| Accueil/);
+  assert.match(homeHtml, /BESSINSKI — Site officiel/);
   assert.match(homeHtml, /href="\/son"/);
   assert.match(homeHtml, /id="about"/);
   assert.match(homeHtml, /id="songs"/);
