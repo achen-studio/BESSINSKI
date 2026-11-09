@@ -527,6 +527,8 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-lyrics h2{font-family:var(--display);font-size:28px;margin-bottom:30px}
 .bess-lyrics-lens{position:relative;isolation:isolate;--lens-mask:radial-gradient(ellipse closest-side,#fff 55%,rgb(255 255 255 / 85%) 70%,transparent 100%);--lens-height:1.3em}
 .bess-lyrics-base{transition:filter .25s}
+.bess-portrait-test-canvas{position:absolute;inset:0;pointer-events:none;max-width:100%}
+.bess-lyrics-lens[data-portrait=ready] .bess-lyrics-clear{display:none}
 .bess-lyrics-clear{display:none;position:absolute;inset:0;pointer-events:none;user-select:none;opacity:0;transition:opacity .2s}
 @media(hover:hover) and (pointer:fine){
   .bess-lyrics-clear{display:block;mask-image:var(--lens-mask);mask-repeat:no-repeat;mask-size:360px var(--lens-height);mask-position:calc(var(--lens-x,0px) - 180px) calc(var(--lens-y,0px) - .65em)}
@@ -660,7 +662,7 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
   .bess-frame-scene .bess-new-release{left:auto;right:20px;width:40%;max-width:40%;gap:0}
   .bess-frame-scene .bess-new-release>span{min-width:0}
   .bess-frame-scene .bess-new-release strong{white-space:normal;overflow-wrap:break-word}
-  .bess-footer-nav>.bess-songs+a{margin-top:24px}
+  .bess-footer-nav>.bess-songs+.bess-contact-heading{margin-top:24px}
   .bess-footer .bess-listen-label{margin-top:48px}
   .bess-footer-bottom{grid-template-columns:minmax(0,1fr) auto}
   .bess-footer-bottom>.bess-back-top{grid-column:1;grid-row:2;align-self:center;font-size:14px;gap:6px}
@@ -745,4 +747,23 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
   .bess-footer .bess-social-names,
   .bess-footer .bess-listen-label{font-family:var(--display);font-size:20px;font-weight:400;line-height:1}
   .bess-footer .bess-footer-bottom>.bess-back-top{font-size:18px;line-height:1}
+}
+
+/* Desktop menu: navigation, contact/socials, then the studio credit. */
+@media(min-width:601px){
+  .bess-menu-panel .bess-menu-bar{padding:32px 28px 16px}
+  .bess-menu-panel .bess-footer{padding:56px 22px 40px}
+  .bess-menu-panel .bess-footer-nav{font-size:36px;gap:16px}
+  .bess-menu-panel .bess-footer-nav>.bess-nav-link{width:100%}
+  .bess-menu-panel .bess-songs h2{font-size:38px;margin-bottom:12px}
+  .bess-menu-panel .bess-song-row{font-size:26px;min-height:38px;padding:5px 0}
+  .bess-menu-panel .bess-song-preview{display:none}
+  .bess-menu-panel .bess-footer-nav>.bess-songs+.bess-contact-heading{margin-top:88px}
+  .bess-menu-panel .bess-footer-bottom{margin:52px 0 0;padding-top:0;grid-template-columns:minmax(0,1fr) auto;gap:44px 24px;align-items:start}
+  .bess-menu-panel .bess-footer-bottom>.bess-contact{grid-column:1;grid-row:1}
+  .bess-menu-panel .bess-footer-bottom>.bess-social-names{grid-column:2;grid-row:1;align-self:start;font-size:24px;gap:24px}
+  .bess-menu-panel .bess-footer-bottom>.bess-creator{grid-column:1/-1;grid-row:2;justify-self:start;align-self:start;margin-top:0;text-align:left}
+  .bess-menu-panel .bess-contact .bess-guitarist{margin-top:12px}
+  .bess-menu-panel .bess-listen-label{margin-top:20px;font-size:16px}
+  .bess-menu-panel .bess-social-icons{margin-top:16px;gap:12px}
 }

@@ -48,7 +48,7 @@ export function BessFooter({ dark = false, menu = false }: { dark?: boolean; men
           ))}
           </div>
         </section>
-        <a href="mailto:hello@bessinski.com" className="bess-nav-link" data-reveal><RollingLabel>CONTACT</RollingLabel><ArrowUpRight aria-hidden="true" /></a>
+        <span className="bess-contact-heading" data-reveal data-letter-reveal><BessLetters text="CONTACT" /></span>
       </nav>
       <div className="bess-footer-bottom" id={`${prefix}contact`}>
         <div className="bess-creator" data-reveal>

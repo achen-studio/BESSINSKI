@@ -35,7 +35,7 @@ export function BessSongPage({ slug }: { slug: SongSlug }) {
         <BessVideo videoId={song.video} song={song.title} />
         <section className="bess-lyrics-section" id="lyrics" aria-label="Paroles et écoute">
           <div className="bess-lyric-feature"><blockquote>{song.quote}</blockquote><ListeningLinks links={links} song={song.title} /></div>
-          <BessLyrics lyrics={song.lyrics} />
+          <BessLyrics lyrics={song.lyrics} songSlug={slug} />
         </section>
         <section className="bess-with" aria-labelledby="with-heading">
           <Photo name={song.images[1].name} alt={`${song.title}, portrait de tournage`} />
