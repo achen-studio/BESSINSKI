@@ -14,6 +14,10 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="bess-site" id="top">
+      <link rel="preload" as="font" href="/fonts/condenso.woff2" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" as="image" href="/bess/laisse-aller-cover-oct28.webp" fetchPriority="high" />
+      <link rel="preload" as="image" href="/bess/laisse-aller-background.webp" imageSrcSet="/bess/laisse-aller-background-960.webp 960w, /bess/laisse-aller-background.webp 1920w, /bess/laisse-aller-background-2560.webp 2560w" imageSizes="100vw" fetchPriority="high" />
+      <noscript><style>{".bess-hero-backgrounds,.bess-featured-image img,.bess-header .bess-wordmark,.bess-header .bess-menu-trigger{opacity:1!important;visibility:visible!important}.bess-featured-caption .bess-letter-word>span{opacity:1!important}"}</style></noscript>
       <a className="bess-skip-link" href="#about">Aller au contenu</a>
       <BessPageMotion>
       <main>

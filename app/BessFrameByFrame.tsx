@@ -33,9 +33,10 @@ export function BessFrameByFrame({ children }: { children: ReactNode }) {
         if (Math.abs(media.currentTime - time) > 1 / 60) media.currentTime = time;
       }
     };
-    // iOS may defer decoding until playback is requested, even with preload=auto.
+    // iOS decodes the scrub video only after playback is requested.
     const prime = () => {
       if (!alive || primed || priming) return;
+      if (!media.poster) media.poster = "/bess/framebyframe-poster.jpg";
       priming = true;
       media.muted = true;
       void media.play().then(() => {
@@ -47,8 +48,8 @@ export function BessFrameByFrame({ children }: { children: ReactNode }) {
       }).catch(() => { priming = false; });
     };
     const visible = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting)) prime();
-    });
+      if (entries.some(entry => entry.intersectionRatio >= 0.45)) prime();
+    }, { threshold: [0.45] });
     visible.observe(media);
     section.addEventListener('touchstart', prime, { passive: true });
     media.addEventListener("loadedmetadata", seek);
@@ -68,7 +69,7 @@ export function BessFrameByFrame({ children }: { children: ReactNode }) {
   return <section ref={root} className="bess-frame-section" id="about" aria-labelledby="about-heading">
     <noscript><style>{'.bess-frame-scene [data-frame-reveal]{opacity:1!important;visibility:visible!important}'}</style></noscript>
     <div className="bess-about bess-frame-scene">
-      <video ref={video} className="bess-frame-video" src="/bess/framebyframe.mp4" poster="/bess/framebyframe-poster.jpg" muted playsInline preload="auto" aria-hidden="true" />
+      <video ref={video} className="bess-frame-video" src="/bess/framebyframe.mp4" muted playsInline preload="none" aria-hidden="true" />
       {children}
     </div>
   </section>;

@@ -1,7 +1,4 @@
-@font-face{font-family:Bess Anton;src:url('/fonts/anton.ttf') format('truetype');font-weight:400;font-display:swap}
-@font-face{font-family:Bess Condenso;src:url('/fonts/condenso.otf') format('opentype');font-weight:400;font-display:swap}
-@font-face{font-family:Bess Roboto;src:url('/fonts/roboto-condensed.ttf') format('truetype');font-weight:400;font-display:swap}
-@font-face{font-family:Bess Roboto;src:url('/fonts/roboto-condensed-light.ttf') format('truetype');font-weight:300;font-display:swap}
+@font-face{font-family:Bess Condenso;src:url('/fonts/condenso.woff2') format('woff2');font-weight:400;font-display:swap}
 
 html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 html:has(.bess-site){overflow-y:scroll}
@@ -778,4 +775,22 @@ html:has(.bess-home-hero[data-navigating=true]){overflow-y:scroll!important}
   .bess-menu-panel .bess-contact .bess-guitarist{margin-top:12px}
   .bess-menu-panel .bess-listen-label{margin-top:20px;font-size:16px}
   .bess-menu-panel .bess-social-icons{margin-top:16px;gap:12px}
+}
+
+/* The hero stays a flat dark field until the active cover and its backdrop are both decoded. */
+.bess-hero-backgrounds{opacity:0}
+.bess-home-hero[data-pair=ready] .bess-hero-backgrounds{opacity:1;transition:opacity .55s ease}
+.bess-home-hero:not([data-pair=ready]) .bess-featured-image img,
+.bess-home-hero:not([data-pair=ready]) .bess-hero-canvas{opacity:0}
+.bess-home-hero[data-pair=ready]:not([data-navigating=true]) .bess-featured-image img{transition:opacity .55s ease}
+.bess-home-hero:not([data-title=ready]) .bess-featured-caption .bess-letter-word>span{opacity:0;transition:none}
+.bess-header:not([data-brand=ready]) .bess-wordmark,
+.bess-header:not([data-brand=ready]) .bess-menu-trigger{visibility:hidden}
+.bess-thumbnails img{opacity:0;transition:opacity .45s ease}
+.bess-thumbnails img.is-ready{opacity:1}
+@media(prefers-reduced-motion:reduce){
+  .bess-home-hero:not([data-title=ready]) .bess-featured-caption .bess-letter-word>span{opacity:0!important}
+  .bess-home-hero[data-pair=ready] .bess-hero-backgrounds,
+  .bess-home-hero[data-pair=ready] .bess-featured-image img,
+  .bess-thumbnails img{transition:none}
 }

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Circle } from "lucide-react";
-import { BessHeader, Photo } from "./BessShared";
+import { BessHeader, Photo, photoBox } from "./BessShared";
 import { BessLetters } from "./BessLetters";
 import { BessHeroBackdrop, type HeroBackdropHandle } from "./BessHeroBackdrop";
 import { parkCover } from "./cover-handoff";
@@ -13,6 +13,7 @@ import type { createHeroScene } from "./hero-scene";
 export function BessHomeHero() {
   const [active, setActive] = useState<number>(initialHeroSlide);
   const [ready, setReady] = useState(false);
+  const [thumbs, setThumbs] = useState(false);
   const backdrop = useRef<HeroBackdropHandle>(null);
   const activeRef = useRef<number>(initialHeroSlide);
   const hero = useRef<HTMLElement>(null);
@@ -116,21 +117,62 @@ export function BessHomeHero() {
         caption.style.setProperty('--title-width', `${width}px`);
       });
     };
-    const observer = new ResizeObserver(measure);
+    const observer = new ResizeObserver(() => { if (element.dataset.title === "ready") measure(); });
     observer.observe(element);
     let alive = true;
-    document.fonts.ready.then(() => { if (alive) measure(); });
-    measure();
-    return () => { alive = false; observer.disconnect(); };
+    const reveal = () => {
+      if (!alive || element.dataset.title === "ready") return;
+      measure();
+      element.dataset.title = "ready";
+    };
+    document.fonts.load('400 1em "Bess Condenso"').then(reveal).catch(reveal);
+    const timer = window.setTimeout(reveal, 8000);
+    return () => { alive = false; window.clearTimeout(timer); observer.disconnect(); };
   }, []);
 
   useEffect(() => {
+    const element = hero.current;
+    if (!element) return;
     let cancelled = false;
-    import("./hero-scene").then(({ createHeroScene }) => {
-      if (cancelled || !canvas.current || !hero.current || !cover.current) return;
-      scene.current = createHeroScene(canvas.current, hero.current, cover.current, heroSlides.map(slide => `/bess/${slide.image}.webp`), activeRef.current, setReady, (timeline, index, reduced) => backdrop.current?.select(timeline, index, reduced));
-    }).catch(() => { /* The accessible image slider remains usable without WebGL. */ });
-    return () => { cancelled = true; scene.current?.destroy(); scene.current = null; };
+    const start = () => {
+      if (cancelled || scene.current || element.dataset.pair !== "ready") return;
+      import("./hero-scene").then(({ createHeroScene }) => {
+        if (cancelled || scene.current || !canvas.current || !hero.current || !cover.current) return;
+        scene.current = createHeroScene(canvas.current, hero.current, cover.current, heroSlides.map(slide => `/bess/${slide.image}.webp`), activeRef.current, setReady, (timeline, index, reduced) => backdrop.current?.select(timeline, index, reduced));
+      }).catch(() => { /* The accessible image slider remains usable without WebGL. */ });
+    };
+    const observer = new MutationObserver(start);
+    observer.observe(element, { attributes: true, attributeFilter: ["data-pair"] });
+    start();
+    return () => { cancelled = true; observer.disconnect(); scene.current?.destroy(); scene.current = null; };
+  }, []);
+
+  useEffect(() => {
+    const element = hero.current;
+    if (!element) return;
+    let alive = true;
+    const wait = (image: HTMLImageElement | null) => new Promise<void>((resolve) => {
+      if (!image || image.complete) { resolve(); return; }
+      image.addEventListener("load", () => resolve(), { once: true });
+      image.addEventListener("error", () => resolve(), { once: true });
+    });
+    const reveal = () => {
+      if (!alive || element.dataset.pair === "ready") return;
+      element.dataset.pair = "ready";
+      setThumbs(true);
+      backdrop.current?.release();
+    };
+    const run = async () => {
+      const coverImage = cover.current?.querySelector("img") ?? null;
+      const backdropImage = element.querySelector<HTMLImageElement>(".bess-hero-backdrop img");
+      await Promise.all([wait(coverImage), wait(backdropImage)]);
+      try { await coverImage?.decode(); } catch { /* The hero still reveals if decode fails. */ }
+      try { await backdropImage?.decode(); } catch { /* The hero still reveals if decode fails. */ }
+      reveal();
+    };
+    const timer = window.setTimeout(reveal, 8000);
+    void run();
+    return () => { alive = false; window.clearTimeout(timer); };
   }, []);
 
   const select = (index: number, direction?: number) => {
@@ -185,7 +227,10 @@ export function BessHomeHero() {
             event.currentTarget.parentElement?.querySelectorAll("button")[next].focus();
           }
         }} aria-label={`Afficher ${slide.title}`} aria-pressed={active === index} title={slide.title}>
-          <span className="bess-thumbnail-image"><Photo name={slide.image} /><span className="bess-thumbnail-marker">play</span>{index === 1 && <span className="bess-thumbnail-new">new</span>}</span>
+          <span className="bess-thumbnail-image">{thumbs && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={`/bess/${slide.image}.webp`} alt="" width={photoBox[slide.image][0]} height={photoBox[slide.image][1]} loading="lazy" fetchPriority="low" decoding="async" draggable={false} onLoad={event => event.currentTarget.classList.add("is-ready")} />
+          )}<span className="bess-thumbnail-marker">play</span>{index === 1 && <span className="bess-thumbnail-new">new</span>}</span>
           <span className="bess-thumbnail-line" />
         </button>)}
       </div>

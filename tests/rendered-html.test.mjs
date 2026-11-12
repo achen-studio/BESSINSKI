@@ -54,7 +54,8 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.match(homeHtml, /<b>STRASBOURG<\/b>/);
   assert.match(homeHtml, /class="bess-frame-section"/);
   assert.match(homeHtml, /src="\/bess\/framebyframe.mp4"/);
-  assert.match(homeHtml, /poster="\/bess\/framebyframe-poster.jpg"/);
+  assert.match(homeHtml, /preload="none"/);
+  assert.doesNotMatch(homeHtml, /framebyframe-poster/);
   await access(new URL('../public/bess/framebyframe-poster.jpg', import.meta.url));
   assert.match(homeHtml, /<canvas[^>]+class="bess-hero-canvas"/);
   assert.equal([...homeHtml.matchAll(/aria-label="Afficher /g)].length, 4);
@@ -79,9 +80,12 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.doesNotMatch(homeHtml, /NIGHT IS COMING/);
   assert.match(homeHtml, /aria-haspopup="dialog"/);
   assert.match(homeHtml, /href="https:\/\/a-chen.webflow.io\/"/);
-  for (const name of ["le-ciel", "laisse-aller", "sormoi"]) {
-    assert.match(homeHtml, new RegExp(`/bess/${name}-background.webp`));
-  }
+  assert.match(homeHtml, /\/bess\/laisse-aller-background.webp/);
+  assert.match(homeHtml, /\/bess\/laisse-aller-cover-oct28.webp/);
+  assert.match(homeHtml, /\/fonts\/condenso.woff2/);
+  assert.doesNotMatch(homeHtml, /\/bess\/le-ciel-background/);
+  assert.doesNotMatch(homeHtml, /\/bess\/sormoi-background/);
+  assert.doesNotMatch(homeHtml, /geist/);
 
   const song = await render(worker, "/son");
   assert.equal(song.status, 200);
