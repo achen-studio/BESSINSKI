@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useRouter } from "next/navigation";
 import { Circle } from "lucide-react";
 import { BessHeader, Photo } from "./BessShared";
 import { BessLetters } from "./BessLetters";
 import { BessHeroBackdrop, type HeroBackdropHandle } from "./BessHeroBackdrop";
+import { parkCover } from "./cover-handoff";
 import { heroSlides, initialHeroSlide } from "./hero-slides";
 import type { createHeroScene } from "./hero-scene";
 
@@ -21,20 +23,31 @@ export function BessHomeHero() {
   const swiped = useRef(false);
   const navigation = useRef<Animation[]>([]);
   const navigating = useRef(false);
+  const router = useRouter();
   const selected = heroSlides[active];
+
+  const commit = (href: string) => {
+    const photo = cover.current?.querySelector("img");
+    if (photo) parkCover(photo);
+    router.push(href);
+  };
 
   const navigate = (href: string) => {
     if (navigating.current) return;
-    if (!hero.current || !cover.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      window.location.assign(href);
+    const element = hero.current;
+    const image = cover.current;
+    if (!element || !image || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      commit(href);
       return;
     }
     navigating.current = true;
+    // Reveal the HTML cover and retire the canvas before the next resize.
+    element.dataset.navigating = 'true';
     requestAnimationFrame(() => {
-      const element = hero.current;
-      const image = cover.current;
-      if (!element || !image) return;
+      if (!hero.current || !cover.current) return;
       const bounds = image.getBoundingClientRect();
+      const host = image.offsetParent?.getBoundingClientRect() ?? element.getBoundingClientRect();
+      const place = (rect: DOMRect) => ({ left: `${rect.left - host.left}px`, top: `${rect.top - host.top}px`, width: `${rect.width}px`, height: `${rect.height}px` });
       // Measure the destination's responsive hero, rather than an intermediate viewport size.
       const destination = document.createElement('div');
       destination.className = 'bess-song-hero';
@@ -42,11 +55,12 @@ export function BessHomeHero() {
       element.append(destination);
       const target = destination.getBoundingClientRect();
       destination.remove();
-      element.dataset.navigating = 'true';
-      Object.assign(image.style, { position: 'fixed', left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, zIndex: '0' });
+      const from = place(bounds);
+      const to = place(target);
+      Object.assign(image.style, { position: 'absolute', ...from, zIndex: '0' });
       const expansion = image.animate([
-        { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, borderRadius: '5px' },
-        { left: '0px', top: '0px', width: `${target.width}px`, height: `${target.height}px`, borderRadius: '0px' },
+        { ...from, borderRadius: '5px' },
+        { ...to, borderRadius: '0px' },
       ], { duration: 650, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
       navigation.current.push(expansion);
       const caption = element.querySelector('.bess-featured-caption[data-active=true]');
@@ -59,7 +73,7 @@ export function BessHomeHero() {
           ], { duration: 450, delay: 120 + Math.min(index * 22, 400), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' }));
         });
       });
-      void expansion.finished.then(() => window.location.assign(href)).catch(() => {});
+      void expansion.finished.then(() => commit(href)).catch(() => {});
     });
   };
 
@@ -79,8 +93,16 @@ export function BessHomeHero() {
       }
     };
     window.addEventListener('pageshow', reset);
-    return () => { window.removeEventListener('pageshow', reset); reset(); };
+    return () => {
+      window.removeEventListener('pageshow', reset);
+      // Leaving the page must keep the expanded cover up; restoring WebGL here flashes empty.
+      if (!navigating.current) reset();
+    };
   }, []);
+
+  useEffect(() => {
+    for (const slide of heroSlides) if (slide.href.startsWith("/son")) router.prefetch(slide.href);
+  }, [router]);
 
   useEffect(() => {
     const element = hero.current;

@@ -4,3 +4,10 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# Static files only. Nitro does not set Cache-Control on these, and this
+# path is more specific than Netlify's default max-age=0.
+[[headers]]
+  for = "/bess/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
