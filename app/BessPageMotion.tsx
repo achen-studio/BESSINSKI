@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 export function BessPageMotion({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
   useEffect(() => {
     const scope = root.current;
     if (!scope) return;
@@ -26,6 +28,6 @@ export function BessPageMotion({ children }: { children: ReactNode }) {
       reduced.removeEventListener("change", update);
       delete scope.dataset.motion;
     };
-  }, []);
+  }, [pathname]);
   return <div ref={root} className="bess-page-motion">{children}</div>;
 }
