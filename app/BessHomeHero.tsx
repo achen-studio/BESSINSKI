@@ -25,16 +25,20 @@ export function BessHomeHero() {
 
   const navigate = (href: string) => {
     if (navigating.current) return;
-    if (!hero.current || !cover.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const element = hero.current;
+    const image = cover.current;
+    if (!element || !image || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       window.location.assign(href);
       return;
     }
     navigating.current = true;
+    // Reveal the HTML cover and retire the canvas before the next resize.
+    element.dataset.navigating = 'true';
     requestAnimationFrame(() => {
-      const element = hero.current;
-      const image = cover.current;
-      if (!element || !image) return;
+      if (!hero.current || !cover.current) return;
       const bounds = image.getBoundingClientRect();
+      const host = image.offsetParent?.getBoundingClientRect() ?? element.getBoundingClientRect();
+      const place = (rect: DOMRect) => ({ left: `${rect.left - host.left}px`, top: `${rect.top - host.top}px`, width: `${rect.width}px`, height: `${rect.height}px` });
       // Measure the destination's responsive hero, rather than an intermediate viewport size.
       const destination = document.createElement('div');
       destination.className = 'bess-song-hero';
@@ -42,11 +46,12 @@ export function BessHomeHero() {
       element.append(destination);
       const target = destination.getBoundingClientRect();
       destination.remove();
-      element.dataset.navigating = 'true';
-      Object.assign(image.style, { position: 'fixed', left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, zIndex: '0' });
+      const from = place(bounds);
+      const to = place(target);
+      Object.assign(image.style, { position: 'absolute', ...from, zIndex: '0' });
       const expansion = image.animate([
-        { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px`, borderRadius: '5px' },
-        { left: '0px', top: '0px', width: `${target.width}px`, height: `${target.height}px`, borderRadius: '0px' },
+        { ...from, borderRadius: '5px' },
+        { ...to, borderRadius: '0px' },
       ], { duration: 650, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
       navigation.current.push(expansion);
       const caption = element.querySelector('.bess-featured-caption[data-active=true]');
@@ -79,7 +84,11 @@ export function BessHomeHero() {
       }
     };
     window.addEventListener('pageshow', reset);
-    return () => { window.removeEventListener('pageshow', reset); reset(); };
+    return () => {
+      window.removeEventListener('pageshow', reset);
+      // Leaving the page must keep the expanded cover up; restoring WebGL here flashes empty.
+      if (!navigating.current) reset();
+    };
   }, []);
 
   useEffect(() => {

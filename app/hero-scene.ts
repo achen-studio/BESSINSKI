@@ -97,7 +97,9 @@ export function createHeroScene(canvas: HTMLCanvasElement, hero: HTMLElement, co
   };
   const motion = createHeroMotion(sources.length, initial, render, arrive);
   const resize = () => {
-    if (disposed) return;
+    // The click animation is carried by the HTML image. Resizing the WebGL
+    // buffer here clears it and can present an empty frame over the cover.
+    if (disposed || hero.dataset.navigating === "true") return;
     const bounds = hero.getBoundingClientRect();
     const card = cover.getBoundingClientRect();
     if (!bounds.width || !bounds.height || !card.width || !card.height) { sized = false; return; }
