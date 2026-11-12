@@ -446,11 +446,12 @@ body:has(.bess-home-hero[data-navigating=true]){overflow:hidden!important;oversc
 .bess-song-hero-image{animation:none}
 .bess-home-hero[data-navigating=true] .bess-featured-image img{opacity:1}
 .bess-home-hero[data-navigating=true] .bess-hero-canvas{opacity:0;visibility:hidden;transition:none}
-/* Hold the expanded cover until the song page has painted, then cut.
-   The cover stays in the root snapshot; pulling it out clips the handoff. */
-@view-transition{navigation:auto}
-::view-transition-group(root){animation-duration:0s}
-::view-transition-old(root),::view-transition-new(root){animation:none}
+/* The cover animation already reaches the final frame. A cross-document
+   view transition then paints the old and new headers together and covers
+   the cover with an empty new snapshot for one frame. */
+@view-transition{navigation:none}
+::view-transition-old(root){animation:none;opacity:0}
+::view-transition-new(root){animation:none;opacity:1}
 .bess-song-hero-image{object-position:center}
 @media(max-width:600px){
   .bess-home-hero .bess-featured-meta{padding-top:10px}
@@ -478,7 +479,7 @@ body:has(.bess-home-hero[data-navigating=true]){overflow:hidden!important;oversc
 }
 .bess-header{view-transition-name:bess-header}
 ::view-transition-group(bess-header){z-index:10;animation-duration:0s}
-::view-transition-old(bess-header){animation:none}
+::view-transition-old(bess-header){display:none}
 ::view-transition-new(bess-header){animation:none}
 .bess-home-hero[data-navigating=true] .bess-caption-stack{z-index:1}
 .bess-home-hero[data-navigating=true] .bess-thumbnails,
