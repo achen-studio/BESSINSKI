@@ -4,6 +4,7 @@
 @font-face{font-family:Bess Roboto;src:url('/fonts/roboto-condensed-light.ttf') format('truetype');font-weight:300;font-display:swap}
 
 html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
+html:has(.bess-site){overflow-y:scroll}
 .bess-site{--red:#ff0000;--ink:#080808;--display:'Bess Anton',Impact,sans-serif;--body:'Bess Roboto','Arial Narrow',sans-serif;--gutter:4.166667%;background:var(--red);color:var(--ink);font-family:var(--body);font-weight:400;letter-spacing:0;overflow-x:clip}
 .bess-site :where(h1,h2,h3,p,figure,blockquote){margin:0}
 .bess-site :where(a,button){color:inherit;-webkit-tap-highlight-color:transparent}
@@ -441,9 +442,12 @@ canvas.bess-song-hero-image{display:block;width:100%;height:100%;object-fit:cove
 .bess-song-credits time{font-size:clamp(22px,5.2cqw,64px);margin-top:18px;line-height:1.3}
 .bess-song-credits>span{font-size:clamp(13px,2.8cqw,28px);max-width:55%;margin-top:24px;line-height:1.1}
 
-/* The home cover handles the transition before native navigation. */
+/* overflow:hidden on the root drops a classic scrollbar and shifts the header.
+   Keep the bar, and clip the page itself so it still cannot scroll. */
 html:has(.bess-home-hero[data-navigating=true]),
-body:has(.bess-home-hero[data-navigating=true]){overflow:hidden!important;overscroll-behavior:none}
+body:has(.bess-home-hero[data-navigating=true]){overflow:visible!important;overscroll-behavior:none}
+html:has(.bess-home-hero[data-navigating=true]){overflow-y:scroll!important}
+.bess-site:has(.bess-home-hero[data-navigating=true]){height:100svh;overflow:hidden}
 .bess-home-hero[data-navigating=true]{overflow:visible;z-index:20}
 .bess-song-hero-image{animation:none}
 .bess-home-hero[data-navigating=true] .bess-featured-image img{opacity:1}
