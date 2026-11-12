@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useRouter } from "next/navigation";
 import { Circle } from "lucide-react";
 import { BessHeader, Photo } from "./BessShared";
 import { BessLetters } from "./BessLetters";
 import { BessHeroBackdrop, type HeroBackdropHandle } from "./BessHeroBackdrop";
+import { parkCover } from "./cover-handoff";
 import { heroSlides, initialHeroSlide } from "./hero-slides";
 import type { createHeroScene } from "./hero-scene";
 
@@ -21,14 +23,21 @@ export function BessHomeHero() {
   const swiped = useRef(false);
   const navigation = useRef<Animation[]>([]);
   const navigating = useRef(false);
+  const router = useRouter();
   const selected = heroSlides[active];
+
+  const commit = (href: string) => {
+    const photo = cover.current?.querySelector("img");
+    if (photo) parkCover(photo);
+    router.push(href);
+  };
 
   const navigate = (href: string) => {
     if (navigating.current) return;
     const element = hero.current;
     const image = cover.current;
     if (!element || !image || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      window.location.assign(href);
+      commit(href);
       return;
     }
     navigating.current = true;
@@ -64,7 +73,7 @@ export function BessHomeHero() {
           ], { duration: 450, delay: 120 + Math.min(index * 22, 400), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' }));
         });
       });
-      void expansion.finished.then(() => window.location.assign(href)).catch(() => {});
+      void expansion.finished.then(() => commit(href)).catch(() => {});
     });
   };
 
@@ -90,6 +99,10 @@ export function BessHomeHero() {
       if (!navigating.current) reset();
     };
   }, []);
+
+  useEffect(() => {
+    for (const slide of heroSlides) if (slide.href.startsWith("/son")) router.prefetch(slide.href);
+  }, [router]);
 
   useEffect(() => {
     const element = hero.current;

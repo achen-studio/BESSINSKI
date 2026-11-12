@@ -86,6 +86,8 @@ html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 .bess-back-top{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:21px;margin-top:90px;white-space:nowrap}
 .bess-song-hero{position:relative;aspect-ratio:1;isolation:isolate;color:var(--red);background:#091322}
 .bess-song-hero-image{position:absolute;inset:0;z-index:-1}
+.bess-song-cover-slot{display:contents}
+canvas.bess-song-hero-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 .bess-song-heading{position:absolute;top:32.8%;left:8%;right:8%;text-align:center}
 .bess-song-heading h1{font-family:'Bess Condenso',Impact,sans-serif;font-size:450px;line-height:1.1;white-space:nowrap}
 .bess-song-heading .bess-symbol{width:74px;height:51px;margin-top:0}

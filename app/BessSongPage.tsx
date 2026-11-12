@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { BessHeader, BessFooter, ListeningLinks, Photo, Symbol } from "./BessShared";
+import { BessSongCover } from "./BessSongCover";
 import { BessLetters } from "./BessLetters";
 import { BessPageMotion } from "./BessPageMotion";
 import { BessVideo } from "./BessVideo";
@@ -18,7 +19,7 @@ export function BessSongPage({ slug }: { slug: SongSlug }) {
     <a className="bess-skip-link" href="#lyrics">Aller aux paroles</a>
     <BessPageMotion><main>
       <section className="bess-song-hero" aria-labelledby="song-title">
-        <Photo name={song.cover} alt={`${song.title}, visuel du clip`} className="bess-song-hero-image" eager decoding="sync" />
+        <BessSongCover name={song.cover} alt={`${song.title}, visuel du clip`} />
         <div className="bess-song-hero-shade" aria-hidden="true" />
         <BessHeader />
         <div className="bess-song-heading">
