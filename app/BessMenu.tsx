@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { loadSecondaryFonts } from "./bess-fonts";
 
 function MenuLabel({ children }: { children: string }) {
   return <span className="bess-rolling-label"><span>{children}</span><span aria-hidden="true">{children}</span></span>;
@@ -16,6 +17,20 @@ export function BessMenu({ children }: { children: ReactNode }) {
   const closing = useRef(false);
   const motion = useRef<Animation | null>(null);
   const id = useId();
+  useEffect(() => {
+    const header = trigger.current?.closest<HTMLElement>(".bess-header");
+    if (!header) return;
+    let alive = true;
+    const reveal = () => { if (alive) header.dataset.brand = "ready"; };
+    const run = () => { void loadSecondaryFonts().then(reveal); };
+    const hero = document.querySelector<HTMLElement>(".bess-home-hero");
+    const timer = window.setTimeout(run, 8000);
+    if (!hero) { run(); return () => { alive = false; window.clearTimeout(timer); }; }
+    const observer = new MutationObserver(() => { if (hero.dataset.pair === "ready") run(); });
+    observer.observe(hero, { attributes: true, attributeFilter: ["data-pair"] });
+    if (hero.dataset.pair === "ready") run();
+    return () => { alive = false; observer.disconnect(); window.clearTimeout(timer); };
+  }, []);
   useEffect(() => {
     const hero = trigger.current?.closest('.bess-home-hero, .bess-song-hero');
     if (!hero) return;
