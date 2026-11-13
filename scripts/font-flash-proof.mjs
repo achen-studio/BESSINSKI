@@ -281,17 +281,17 @@ async function watch(client, shots, tag) {
     try { sample = await readSample(client); } catch { continue; }
     if (!sample) continue;
     samples.push(sample);
-    const previous = samples.at(-2);
-    const becameReady = sample.condenso && !(previous && previous.condenso);
+    const settled = sample.condenso && sample.visibleLetters > 0 && Math.abs(sample.ty) < 20;
     if (shots && !fallbackFile && sample.visibleLetters > 0 && Math.abs(sample.ty) < 48 && !sample.condenso) {
       fallbackFile = join(shots, `${tag}-fallback.png`);
       await shoot(client, fallbackFile);
     }
-    if (shots && becameReady) {
+    if (shots && settled) {
       readyFile = join(shots, `${tag}-condenso.png`);
       await shoot(client, readyFile);
     }
-    if (sample.condenso && sample.visibleLetters > 0 && samples.filter((item) => item.condenso && item.visibleLetters > 0).length > 2) break;
+    if (!shots && sample.condenso && sample.visibleLetters > 0 && samples.filter((item) => item.condenso && item.visibleLetters > 0).length > 2) break;
+    if (settled) break;
   }
   if (shots && !readyFile && samples.at(-1)?.condenso) {
     readyFile = join(shots, `${tag}-condenso.png`);
