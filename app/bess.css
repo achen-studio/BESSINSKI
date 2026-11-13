@@ -2,6 +2,7 @@
 
 html:has(.bess-site),body:has(.bess-site){overflow:visible;background:#000}
 html:has(.bess-site){overflow-y:scroll}
+.bess-site:has(.bess-home-hero){background:#000}
 .bess-site{--red:#ff0000;--ink:#080808;--display:'Bess Anton',Impact,sans-serif;--body:'Bess Roboto','Arial Narrow',sans-serif;--gutter:4.166667%;background:var(--red);color:var(--ink);font-family:var(--body);font-weight:400;letter-spacing:0;overflow-x:clip}
 .bess-site :where(h1,h2,h3,p,figure,blockquote){margin:0}
 .bess-site :where(a,button){color:inherit;-webkit-tap-highlight-color:transparent}
