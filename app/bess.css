@@ -511,8 +511,8 @@ html:has(.bess-home-hero[data-navigating=true]){overflow-y:scroll!important}
 }
 @media(prefers-reduced-motion:reduce){.bess-lyric-line{transition:none!important;transform:none!important}}
 
-/* Native navigation follows the expansion; start the title on its first paint. */
-.bess-song-heading .bess-letter-word>span{animation-delay:var(--letter-delay)}
+.bess-song-heading{--song-title-hold:.08s}
+.bess-song-heading .bess-letter-word>span{animation-delay:calc(var(--song-title-hold) + var(--letter-delay))}
 .bess-song-credits .bess-letter-word>span{animation-delay:calc(1.05s + var(--letter-delay))}
 .bess-song-credits>span{animation-delay:1.15s}
 .bess-song-emblems{animation:bess-song-title .65s .9s both}
@@ -784,7 +784,8 @@ html:has(.bess-home-hero[data-navigating=true]){overflow-y:scroll!important}
 .bess-home-hero:not([data-pair=ready]) .bess-featured-image img,
 .bess-home-hero:not([data-pair=ready]) .bess-hero-canvas{opacity:0}
 .bess-home-hero[data-pair=ready]:not([data-navigating=true]) .bess-featured-image img{transition:opacity .55s ease}
-.bess-home-hero:not([data-title=ready]) .bess-featured-caption .bess-letter-word>span{opacity:0;transition:none}
+.bess-home-hero:not([data-title=ready]) .bess-featured-caption h1 .bess-letter-word>span{opacity:0;filter:blur(10px);transform:translateY(.75em);transition:none}
+.bess-home-hero:not([data-title=ready]) .bess-featured-caption .bess-featured-meta .bess-letter-word>span{opacity:0;filter:blur(10px);transform:translateX(100px) scale(2.1);transition:none}
 .bess-header:not([data-brand=ready]) .bess-wordmark,
 .bess-header:not([data-brand=ready]) .bess-menu-trigger{visibility:hidden}
 .bess-thumbnails img{opacity:0;transition:opacity .45s ease}
