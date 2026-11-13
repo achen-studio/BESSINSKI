@@ -49,13 +49,15 @@ export function BessHomeHero() {
         if (!hero.current || !cover.current) return;
         const caption = element.querySelector('.bess-featured-caption[data-active=true]');
         const exits: Animation[] = [];
-        // The exit finishes before the cover grows, so its stagger cannot hide inside the expansion.
+        const exitMs = 320;
+        const exitStaggerMs = 16;
+        const exitStaggerCapMs = 220;
         caption?.querySelectorAll<HTMLElement>('h1, .bess-featured-meta>span, .bess-featured-meta>time').forEach(group => {
           group.querySelectorAll<HTMLElement>('.bess-letter-word>span').forEach((letter, index) => {
             const exit = letter.animate([
               { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' },
               { opacity: 0, filter: 'blur(10px)', transform: 'translateY(.75em)' },
-            ], { duration: 320, delay: Math.min(index * 16, 220), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' });
+            ], { duration: exitMs, delay: Math.min(index * exitStaggerMs, exitStaggerCapMs), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' });
             exits.push(exit);
             navigation.current.push(exit);
           });

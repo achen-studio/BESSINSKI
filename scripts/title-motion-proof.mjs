@@ -1,21 +1,4 @@
 #!/usr/bin/env node
-// Frame probe for two hero motions.
-//
-// Decision this run can change:
-// a return to home is a rise when the active title letter travels at least
-// 0.35em upward and passes through blur >= 4px while its opacity climbs
-// from below 0.25 to above 0.8. It is opacity-only when that climb happens
-// with travel under 0.12em and blur under 1px.
-// A cover click fails when any frame shows a home title and a song title
-// together, or a home title while the cover is already 12% wider than its
-// start. The pass is zero such frames.
-// Noise floor: one headless Chrome pass per viewport. A single frame under
-// 0.12 opacity does not count as a title. Arrow navigation is the control.
-// If the arrow does not rise, the probe is wrong and the other numbers are
-// not a verdict.
-// Limiter: the page animation clock. Sampling reads computed style on rAF.
-// Screenshots are a second pass and are not the measurement.
-
 import { spawn, spawnSync } from "node:child_process";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
@@ -24,6 +7,21 @@ import { join } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
+const RISE_TRAVEL_EM = 0.35;
+const RISE_BLUR_PX = 4;
+const OPACITY_LOW = 0.25;
+const OPACITY_HIGH = 0.8;
+const CLIMB_OPACITY_MIN = 0.12;
+const CLIMB_OPACITY_MAX = 0.9;
+const OPACITY_ONLY_TRAVEL_EM = 0.12;
+const OPACITY_ONLY_BLUR_PX = 1;
+const TITLE_VISIBLE = 0.12;
+const MIN_CLIMB_FRAMES = 3;
+const MIN_LETTER_FRAMES = 4;
+const COVER_MIN_PX = 40;
+const COVER_GROWTH = 1.12;
+const COVER_GROWTH_PX = 24;
+const SONG_LIT = 0.15;
 
 function arg(name, fallback) {
   const index = process.argv.indexOf(name);
@@ -71,7 +69,7 @@ const BOOT = `(() => {
   };
   const shownCount = (spans, parentOpacity) => spans.reduce((count, span) => {
     const opacity = Number(getComputedStyle(span).opacity) * parentOpacity;
-    if (opacity <= 0.12) return count;
+    if (opacity <= ${TITLE_VISIBLE}) return count;
     const rect = span.getBoundingClientRect();
     if (rect.width < 1 || rect.bottom < 0 || rect.top > innerHeight) return count;
     return count + 1;
@@ -264,7 +262,7 @@ async function launch() {
     try {
       const response = await fetch(`http://127.0.0.1:${port}/json/version`);
       if (response.ok) return { proc, port, dir, version: await response.json() };
-    } catch { /* chrome is still binding the port */ }
+    } catch {}
     await delay(80);
   }
   proc.kill("SIGKILL");
@@ -369,10 +367,10 @@ function classifyReturn(frames) {
   const home = frames.filter((frame) => frame.path === "/");
   const title = endingTitle(home);
   const letters = series(home, "a", title);
-  if (letters.length < 4) return { verdict: "short", frames: home.length, letters: letters.length, title };
-  const low = letters.filter((letter) => letter.o < 0.25);
-  const high = letters.filter((letter) => letter.o > 0.8);
-  const climb = letters.filter((letter) => letter.o >= 0.12 && letter.o <= 0.9);
+  if (letters.length < MIN_LETTER_FRAMES) return { verdict: "short", frames: home.length, letters: letters.length, title };
+  const low = letters.filter((letter) => letter.o < OPACITY_LOW);
+  const high = letters.filter((letter) => letter.o > OPACITY_HIGH);
+  const climb = letters.filter((letter) => letter.o >= CLIMB_OPACITY_MIN && letter.o <= CLIMB_OPACITY_MAX);
   const travel = letters.length ? Math.max(...letters.map((letter) => letter.top)) - Math.min(...letters.map((letter) => letter.top)) : 0;
   const size = letters.find((letter) => letter.size)?.size || 16;
   const travelEm = travel / size;
@@ -383,8 +381,8 @@ function classifyReturn(frames) {
   const first = letters[0];
   const readyFlip = home.find((frame) => frame.titleReady === "ready");
   const readyLetter = readyFlip ? captionByTitle(readyFlip, title)?.a : null;
-  const rise = low.length > 0 && high.length > 0 && climb.length >= 3 && climbTy >= 0.35 && climbBlur >= 4;
-  const opacityOnly = low.length > 0 && high.length > 0 && climb.length >= 3 && climbTy < 0.12 && climbBlur < 1;
+  const rise = low.length > 0 && high.length > 0 && climb.length >= MIN_CLIMB_FRAMES && climbTy >= RISE_TRAVEL_EM && climbBlur >= RISE_BLUR_PX;
+  const opacityOnly = low.length > 0 && high.length > 0 && climb.length >= MIN_CLIMB_FRAMES && climbTy < OPACITY_ONLY_TRAVEL_EM && climbBlur < OPACITY_ONLY_BLUR_PX;
   let verdict = "other";
   if (rise) verdict = "rise";
   else if (opacityOnly) verdict = "opacity-only";
@@ -417,7 +415,7 @@ function blackout(home) {
 }
 
 function classifyClick(frames) {
-  const withCover = frames.filter((frame) => frame.coverW > 40);
+  const withCover = frames.filter((frame) => frame.coverW > COVER_MIN_PX);
   const startW = withCover[0]?.coverW || 0;
   let homeDuringExpand = 0;
   let both = 0;
@@ -425,7 +423,7 @@ function classifyClick(frames) {
   const titleTrace = [];
   for (const frame of frames) {
     maxTitles = Math.max(maxTitles, frame.titles || 0);
-    const grew = startW > 0 && frame.coverW > startW * 1.12 && frame.coverW - startW > 24;
+    const grew = startW > 0 && frame.coverW > startW * COVER_GROWTH && frame.coverW - startW > COVER_GROWTH_PX;
     const homeUp = frame.homeShown > 0;
     const songUp = frame.songShown > 0;
     if (homeUp && songUp) both += 1;
@@ -435,9 +433,9 @@ function classifyClick(frames) {
     }
   }
   const songFrames = frames.filter((frame) => frame.song);
-  const songLit = songFrames.find((frame) => (frame.songO ?? 0) > 0.15);
+  const songLit = songFrames.find((frame) => (frame.songO ?? 0) > SONG_LIT);
   const holdMs = songFrames.length && songLit ? songLit.t - songFrames[0].t : null;
-  const endW = [...frames].reverse().find((frame) => frame.coverW > 40)?.coverW || 0;
+  const endW = [...frames].reverse().find((frame) => frame.coverW > COVER_MIN_PX)?.coverW || 0;
   return {
     frames: frames.length,
     startW,

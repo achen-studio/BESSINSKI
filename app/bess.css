@@ -511,8 +511,8 @@ html:has(.bess-home-hero[data-navigating=true]){overflow-y:scroll!important}
 }
 @media(prefers-reduced-motion:reduce){.bess-lyric-line{transition:none!important;transform:none!important}}
 
-/* The cover already fills the hero when this page paints. Delay the title so that first frame shows the cover alone. */
-.bess-song-heading .bess-letter-word>span{animation-delay:calc(.08s + var(--letter-delay))}
+.bess-song-heading{--song-title-hold:.08s}
+.bess-song-heading .bess-letter-word>span{animation-delay:calc(var(--song-title-hold) + var(--letter-delay))}
 .bess-song-credits .bess-letter-word>span{animation-delay:calc(1.05s + var(--letter-delay))}
 .bess-song-credits>span{animation-delay:1.15s}
 .bess-song-emblems{animation:bess-song-title .65s .9s both}
