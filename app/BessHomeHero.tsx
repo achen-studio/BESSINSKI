@@ -42,17 +42,31 @@ export function BessHomeHero() {
       return;
     }
     navigating.current = true;
+    const caption = element.querySelector('.bess-featured-caption[data-active=true]');
+    const exitMs = 320;
+    const exitStaggerMs = 16;
+    const exitStaggerCapMs = 220;
+    const expansionMs = 650;
+    const groups = Array.from(caption?.querySelectorAll<HTMLElement>('h1, .bess-featured-meta>span, .bess-featured-meta>time') ?? []);
+    // The song hero can be shorter than the viewport. Fade the strip it releases
+    // inside the home hero too, not only the about section below the home hero.
+    const destination = document.createElement('div');
+    destination.className = 'bess-song-hero';
+    Object.assign(destination.style, { position: 'fixed', top: '0', left: '0', visibility: 'hidden', pointerEvents: 'none' });
+    element.append(destination);
+    const target = destination.getBoundingClientRect();
+    destination.remove();
+    element.style.setProperty('--bess-song-bottom', `${target.bottom - element.getBoundingClientRect().top}px`);
+    element.closest<HTMLElement>('.bess-site')?.style.setProperty('--bess-red-fade-duration', `${expansionMs}ms`);
+    // Preserve the visible section below the hero while its red overlay fades in.
+    element.closest<HTMLElement>('.bess-site')?.style.setProperty('--bess-nav-scroll', `${window.scrollY}px`);
     // Reveal the HTML cover and retire the canvas before the next resize.
     element.dataset.navigating = 'true';
     requestAnimationFrame(() => {
       void (async () => {
         if (!hero.current || !cover.current) return;
-        const caption = element.querySelector('.bess-featured-caption[data-active=true]');
         const exits: Animation[] = [];
-        const exitMs = 320;
-        const exitStaggerMs = 16;
-        const exitStaggerCapMs = 220;
-        caption?.querySelectorAll<HTMLElement>('h1, .bess-featured-meta>span, .bess-featured-meta>time').forEach(group => {
+        groups.forEach(group => {
           group.querySelectorAll<HTMLElement>('.bess-letter-word>span').forEach((letter, index) => {
             const exit = letter.animate([
               { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' },
@@ -71,19 +85,14 @@ export function BessHomeHero() {
         const bounds = image.getBoundingClientRect();
         const host = image.offsetParent?.getBoundingClientRect() ?? element.getBoundingClientRect();
         const place = (rect: DOMRect) => ({ left: `${rect.left - host.left}px`, top: `${rect.top - host.top}px`, width: `${rect.width}px`, height: `${rect.height}px` });
-        const destination = document.createElement('div');
-        destination.className = 'bess-song-hero';
-        Object.assign(destination.style, { position: 'fixed', top: '0', left: '0', visibility: 'hidden', pointerEvents: 'none' });
-        element.append(destination);
-        const target = destination.getBoundingClientRect();
-        destination.remove();
         const from = place(bounds);
         const to = place(target);
         Object.assign(image.style, { position: 'absolute', ...from, zIndex: '0' });
+        element.dataset.expanding = 'true';
         const expansion = image.animate([
           { ...from, borderRadius: '5px' },
           { ...to, borderRadius: '0px' },
-        ], { duration: 650, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
+        ], { duration: expansionMs, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
         navigation.current.push(expansion);
         try {
           await expansion.finished;
@@ -106,7 +115,13 @@ export function BessHomeHero() {
       navigation.current.forEach(animation => animation.cancel());
       navigation.current = [];
       navigating.current = false;
-      if (hero.current) delete hero.current.dataset.navigating;
+      if (hero.current) {
+        delete hero.current.dataset.navigating;
+        delete hero.current.dataset.expanding;
+        hero.current.style.removeProperty('--bess-song-bottom');
+        hero.current.closest<HTMLElement>('.bess-site')?.style.removeProperty('--bess-nav-scroll');
+        hero.current.closest<HTMLElement>('.bess-site')?.style.removeProperty('--bess-red-fade-duration');
+      }
       if (cover.current) {
         for (const property of ['position', 'left', 'top', 'width', 'height', 'z-index']) cover.current.style.removeProperty(property);
       }
