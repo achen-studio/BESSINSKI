@@ -45,36 +45,52 @@ export function BessHomeHero() {
     // Reveal the HTML cover and retire the canvas before the next resize.
     element.dataset.navigating = 'true';
     requestAnimationFrame(() => {
-      if (!hero.current || !cover.current) return;
-      const bounds = image.getBoundingClientRect();
-      const host = image.offsetParent?.getBoundingClientRect() ?? element.getBoundingClientRect();
-      const place = (rect: DOMRect) => ({ left: `${rect.left - host.left}px`, top: `${rect.top - host.top}px`, width: `${rect.width}px`, height: `${rect.height}px` });
-      // Measure the destination's responsive hero, rather than an intermediate viewport size.
-      const destination = document.createElement('div');
-      destination.className = 'bess-song-hero';
-      Object.assign(destination.style, { position: 'fixed', top: '0', left: '0', visibility: 'hidden', pointerEvents: 'none' });
-      element.append(destination);
-      const target = destination.getBoundingClientRect();
-      destination.remove();
-      const from = place(bounds);
-      const to = place(target);
-      Object.assign(image.style, { position: 'absolute', ...from, zIndex: '0' });
-      const expansion = image.animate([
-        { ...from, borderRadius: '5px' },
-        { ...to, borderRadius: '0px' },
-      ], { duration: 650, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
-      navigation.current.push(expansion);
-      const caption = element.querySelector('.bess-featured-caption[data-active=true]');
-      // Each text starts its own cascade, so credits overlap the title's exit.
-      caption?.querySelectorAll<HTMLElement>('h1, .bess-featured-meta>span, .bess-featured-meta>time').forEach(group => {
-        group.querySelectorAll<HTMLElement>('.bess-letter-word>span').forEach((letter, index) => {
-          navigation.current.push(letter.animate([
-            { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' },
-            { opacity: 0, filter: 'blur(10px)', transform: 'translateY(.75em)' },
-          ], { duration: 450, delay: 120 + Math.min(index * 22, 400), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' }));
+      void (async () => {
+        if (!hero.current || !cover.current) return;
+        const caption = element.querySelector('.bess-featured-caption[data-active=true]');
+        const exits: Animation[] = [];
+        // The exit finishes before the cover grows, so its stagger cannot hide inside the expansion.
+        caption?.querySelectorAll<HTMLElement>('h1, .bess-featured-meta>span, .bess-featured-meta>time').forEach(group => {
+          group.querySelectorAll<HTMLElement>('.bess-letter-word>span').forEach((letter, index) => {
+            const exit = letter.animate([
+              { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' },
+              { opacity: 0, filter: 'blur(10px)', transform: 'translateY(.75em)' },
+            ], { duration: 320, delay: Math.min(index * 16, 220), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' });
+            exits.push(exit);
+            navigation.current.push(exit);
+          });
         });
-      });
-      void expansion.finished.then(() => commit(href)).catch(() => {});
+        try {
+          await Promise.all(exits.map(exit => exit.finished));
+        } catch {
+          return;
+        }
+        if (!hero.current || !cover.current || !navigating.current) return;
+        const bounds = image.getBoundingClientRect();
+        const host = image.offsetParent?.getBoundingClientRect() ?? element.getBoundingClientRect();
+        const place = (rect: DOMRect) => ({ left: `${rect.left - host.left}px`, top: `${rect.top - host.top}px`, width: `${rect.width}px`, height: `${rect.height}px` });
+        const destination = document.createElement('div');
+        destination.className = 'bess-song-hero';
+        Object.assign(destination.style, { position: 'fixed', top: '0', left: '0', visibility: 'hidden', pointerEvents: 'none' });
+        element.append(destination);
+        const target = destination.getBoundingClientRect();
+        destination.remove();
+        const from = place(bounds);
+        const to = place(target);
+        Object.assign(image.style, { position: 'absolute', ...from, zIndex: '0' });
+        const expansion = image.animate([
+          { ...from, borderRadius: '5px' },
+          { ...to, borderRadius: '0px' },
+        ], { duration: 650, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
+        navigation.current.push(expansion);
+        try {
+          await expansion.finished;
+        } catch {
+          return;
+        }
+        if (!navigating.current) return;
+        commit(href);
+      })();
     });
   };
 
