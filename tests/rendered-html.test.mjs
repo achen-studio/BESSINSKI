@@ -82,7 +82,7 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.match(homeHtml, /href="https:\/\/a-chen.webflow.io\/"/);
   assert.match(homeHtml, /\/bess\/laisse-aller-background.webp/);
   assert.match(homeHtml, /\/bess\/laisse-aller-cover-oct28.webp/);
-  assert.match(homeHtml, /\/fonts\/condenso.woff2/);
+  assert.match(homeHtml, /<link rel="preload" as="font" href="\/fonts\/condenso.woff2" type="font\/woff2" crossorigin="anonymous"/);
   assert.doesNotMatch(homeHtml, /\/bess\/le-ciel-background/);
   assert.doesNotMatch(homeHtml, /\/bess\/sormoi-background/);
   assert.doesNotMatch(homeHtml, /geist/);
@@ -91,6 +91,7 @@ test("server-renders Home and SON with their Figma content and navigation", asyn
   assert.equal(song.status, 200);
   const songHtml = await song.text();
   assert.match(songHtml, /Laisse Aller \| BESSINSKI/);
+  assert.match(songHtml, /<link rel="preload" as="font" href="\/fonts\/condenso.woff2" type="font\/woff2" crossorigin="anonymous"/);
   assert.match(songHtml, /id="lyrics"/);
   assert.match(songHtml, /Kevin Besse/);
   assert.match(songHtml, /\/bess\/laisse-aller-oct28-5.webp/);

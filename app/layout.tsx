@@ -30,6 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
+      <head>
+        <link rel="preload" as="font" href="/fonts/condenso.woff2" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body
         className="antialiased"
       >

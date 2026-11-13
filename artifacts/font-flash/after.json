@@ -1,0 +1,1035 @@
+{
+  "url": "https://deploy-preview-5--bessinski.netlify.app/son",
+  "label": "after",
+  "runsRequested": 5,
+  "throttle": {
+    "offline": false,
+    "latency": 562.5,
+    "downloadThroughput": 180000,
+    "uploadThroughput": 84375
+  },
+  "claim": "Impact fallback stays up for about 0.55-0.7s on cold load and on refresh",
+  "noiseFloorMs": 150,
+  "injectPreload": false,
+  "immutableFont": false,
+  "machine": {
+    "load": "06:28:51 up 25 min,  0 user,  load average: 0.03, 0.19, 0.19",
+    "cores": "4"
+  },
+  "headers": [
+    {
+      "path": "/fonts/condenso.woff2",
+      "status": 200,
+      "cacheControl": "public,max-age=31536000,immutable",
+      "contentLength": "13208"
+    },
+    {
+      "path": "/fonts/anton.woff2",
+      "status": 200,
+      "cacheControl": "public,max-age=31536000,immutable",
+      "contentLength": "46996"
+    },
+    {
+      "path": "/fonts/roboto-condensed.woff2",
+      "status": 200,
+      "cacheControl": "public,max-age=31536000,immutable",
+      "contentLength": "50708"
+    },
+    {
+      "path": "/fonts/roboto-condensed-light.woff2",
+      "status": 200,
+      "cacheControl": "public,max-age=31536000,immutable",
+      "contentLength": "51308"
+    }
+  ],
+  "pairs": [
+    {
+      "profile": "desktop",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1795,
+        "condensoMs": 1701,
+        "discoveredMs": 1701,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 344.593)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 670,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1701,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1795,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 29,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 630,
+          "encoded": 13324,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 749,
+        "condensoMs": 621,
+        "discoveredMs": 621,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 289.644)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 621,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 749,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 6,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 157,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 0
+    },
+    {
+      "profile": "desktop",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1785,
+        "condensoMs": 1696,
+        "discoveredMs": 1696,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 344.372)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 668,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1696,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1785,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 29,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 627,
+          "encoded": 13416,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 738,
+        "condensoMs": 654,
+        "discoveredMs": 600,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 289.714)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 600,
+            "mark": "unloaded:hidden"
+          },
+          {
+            "t": 654,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 738,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 6,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 135,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 1
+    },
+    {
+      "profile": "desktop",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1814,
+        "condensoMs": 1684,
+        "discoveredMs": 1684,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 289.747)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 661,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1684,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1814,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 30,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 622,
+          "encoded": 13391,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 744,
+        "condensoMs": 661,
+        "discoveredMs": 595,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 316.544)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 595,
+            "mark": "unloaded:hidden"
+          },
+          {
+            "t": 661,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 744,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 6,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 176,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 2
+    },
+    {
+      "profile": "desktop",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1795,
+        "condensoMs": 1668,
+        "discoveredMs": 1668,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 289.774)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 663,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1668,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1795,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 29,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 622,
+          "encoded": 13324,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 715,
+        "condensoMs": 666,
+        "discoveredMs": 611,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 344.477)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 611,
+            "mark": "unloaded:hidden"
+          },
+          {
+            "t": 666,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 715,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 5,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 182,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 3
+    },
+    {
+      "profile": "desktop",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1784,
+        "condensoMs": 1695,
+        "discoveredMs": 1695,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 344.581)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 662,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1695,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1784,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 29,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 622,
+          "encoded": 13385,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 748,
+        "condensoMs": 655,
+        "discoveredMs": 604,
+        "widthAtVisible": 1492,
+        "widthAtReady": 1492,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 316.661)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 604,
+            "mark": "unloaded:hidden"
+          },
+          {
+            "t": 655,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 748,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 6,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 138,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 4
+    },
+    {
+      "profile": "mobile",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1771,
+        "condensoMs": 1685,
+        "discoveredMs": 1685,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 73.6643)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 663,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1685,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1771,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 29,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 622,
+          "encoded": 13324,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 734,
+        "condensoMs": 651,
+        "discoveredMs": 597,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 67.4279)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 597,
+            "mark": "unloaded:hidden"
+          },
+          {
+            "t": 651,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 734,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 6,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 132,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 0
+    },
+    {
+      "profile": "mobile",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1761,
+        "condensoMs": 1671,
+        "discoveredMs": 1671,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 80.2057)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 658,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1671,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1761,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 29,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 618,
+          "encoded": 13385,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 690,
+        "condensoMs": 649,
+        "discoveredMs": 600,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 80.1957)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 600,
+            "mark": "unloaded:hidden"
+          },
+          {
+            "t": 649,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 690,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 5,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 134,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 1
+    },
+    {
+      "profile": "mobile",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1777,
+        "condensoMs": 1683,
+        "discoveredMs": 1683,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 73.6547)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 660,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1683,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1777,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 29,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 621,
+          "encoded": 13408,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 735,
+        "condensoMs": 653,
+        "discoveredMs": 602,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 73.6685)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 602,
+            "mark": "unloaded:hidden"
+          },
+          {
+            "t": 653,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 735,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 6,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 135,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 2
+    },
+    {
+      "profile": "mobile",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1768,
+        "condensoMs": 1681,
+        "discoveredMs": 1681,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 73.6777)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 663,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1681,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1768,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 29,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 624,
+          "encoded": 13323,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 683,
+        "condensoMs": 643,
+        "discoveredMs": 596,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 80.2128)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 596,
+            "mark": "unloaded:hidden"
+          },
+          {
+            "t": 643,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 683,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 5,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 124,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 3
+    },
+    {
+      "profile": "mobile",
+      "chrome": "Chrome/157.0.8103.50",
+      "cold": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 1780,
+        "condensoMs": 1690,
+        "discoveredMs": 1690,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 73.6765)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 663,
+            "mark": "missing:hidden"
+          },
+          {
+            "t": 1690,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 1780,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 29,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": false,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 624,
+          "encoded": 13417,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "warm": {
+        "fallbackMs": 0,
+        "titleVisibleMs": 728,
+        "condensoMs": 645,
+        "discoveredMs": 595,
+        "widthAtVisible": 347,
+        "widthAtReady": 347,
+        "widthDelta": 0,
+        "fontFamily": "\"Bess Condenso\", Impact, sans-serif",
+        "preloadInDocument": true,
+        "text": "LAISSE ALLER",
+        "transformAtVisible": "matrix(1, 0, 0, 1, 0, 73.6758)",
+        "antonAtTitle": "missing",
+        "wordVisibleAtTitle": false,
+        "timeline": [
+          {
+            "t": 595,
+            "mark": "unloaded:hidden"
+          },
+          {
+            "t": 645,
+            "mark": "loaded:hidden"
+          },
+          {
+            "t": 728,
+            "mark": "loaded:shown"
+          }
+        ],
+        "samples": 6,
+        "font": {
+          "url": "https://deploy-preview-5--bessinski.netlify.app/fonts/condenso.woff2",
+          "status": 200,
+          "fromDiskCache": false,
+          "servedFromCache": true,
+          "cacheControl": "public,max-age=31536000,immutable",
+          "requestMs": 125,
+          "encoded": 0,
+          "failed": null
+        },
+        "timedOut": false,
+        "shots": {
+          "fallback": null,
+          "condenso": null
+        }
+      },
+      "run": 4
+    }
+  ],
+  "cells": [
+    {
+      "profile": "desktop",
+      "phase": "cold",
+      "n": 5,
+      "fallbackMs": 0,
+      "rangeMs": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile": "desktop",
+      "phase": "warm",
+      "n": 5,
+      "fallbackMs": 0,
+      "rangeMs": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile": "mobile",
+      "phase": "cold",
+      "n": 5,
+      "fallbackMs": 0,
+      "rangeMs": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile": "mobile",
+      "phase": "warm",
+      "n": 5,
+      "fallbackMs": 0,
+      "rangeMs": [
+        0,
+        0
+      ]
+    }
+  ]
+}
