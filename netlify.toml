@@ -12,8 +12,6 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# These woff2 URLs are the permanent files. A new cut of a face needs a new
-# filename, because immutable tells the browser not to revalidate for a year.
 [[headers]]
   for = "/fonts/*"
   [headers.values]

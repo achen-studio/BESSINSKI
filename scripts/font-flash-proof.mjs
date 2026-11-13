@@ -1,16 +1,4 @@
 #!/usr/bin/env node
-// Times how long /son paints the song title in the Impact fallback before
-// Bess Condenso is usable. DevTools Fast 3G is 562.5 ms latency and
-// 180_000 B/s down. A fresh Chrome profile is the cold load. The same
-// profile then reloads, which is the warm refresh.
-//
-// Claim this number can support or kill:
-// the title stays on Impact for about 0.55–0.7 s on a cold load and again
-// on refresh.
-// A median under 150 ms kills that claim. 150 ms is the noise floor, well
-// under one emulated round trip. Condenso is 13 KB, so the request is bound
-// by that round trip once it starts, not by bandwidth.
-
 import { execSync, spawn } from "node:child_process";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
@@ -20,9 +8,9 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const FAST_3G = {
   offline: false,
-  latency: 150 * 3.75,
-  downloadThroughput: (1.6 * 1000 * 1000) / 8 * 0.9,
-  uploadThroughput: (750 * 1000) / 8 * 0.9,
+  latency: 562.5,
+  downloadThroughput: 180_000,
+  uploadThroughput: 84_375,
 };
 
 const PROFILES = {
@@ -161,7 +149,13 @@ async function launch() {
         const version = await response.json();
         return { proc, port, dir, version, log: () => log };
       }
-    } catch { /* chrome is still binding the port */ }
+    } catch (error) {
+      const code = error?.cause?.code ?? error?.code;
+      if (code !== "ECONNREFUSED" && code !== "ECONNRESET") {
+        proc.kill("SIGKILL");
+        throw error;
+      }
+    }
     await delay(80);
   }
   proc.kill("SIGKILL");
