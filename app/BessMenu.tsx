@@ -59,9 +59,11 @@ export function BessMenu({ children }: { children: ReactNode }) {
   };
   useEffect(() => {
     if (!open) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = previous; };
+    // Keep body out of the sticky section's scroll-container chain.
+    const page = document.documentElement;
+    const previous = page.style.overflow;
+    page.style.overflow = "hidden";
+    return () => { page.style.overflow = previous; };
   }, [open]);
   useEffect(() => () => { motion.current?.cancel(); }, []);
   const close = useCallback(() => {
