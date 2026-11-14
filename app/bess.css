@@ -794,6 +794,13 @@ html:has(.bess-home-hero[data-navigating=true]){overflow-y:scroll!important}
 .bess-header:not([data-brand=ready]) .bess-menu-trigger{visibility:hidden}
 .bess-thumbnails img{opacity:0;transition:opacity .45s ease}
 .bess-thumbnails img.is-ready{opacity:1}
+/* Fill the currently visible viewport when Safari retracts its toolbar. */
+@media(max-width:900px){
+  .bess-site.bess-menu-panel{height:100dvh;min-height:100svh;max-height:100dvh;bottom:auto}
+  .bess-menu-panel::backdrop{background:#ff0000}
+  html:has(.bess-menu-panel[open]),body:has(.bess-menu-panel[open]){background:#ff0000}
+  .bess-menu-panel .bess-footer{padding-bottom:max(24px,env(safe-area-inset-bottom))}
+}
 @media(prefers-reduced-motion:reduce){
   .bess-home-hero:not([data-title=ready]) .bess-featured-caption .bess-letter-word>span{opacity:0!important}
   .bess-home-hero[data-pair=ready] .bess-hero-backgrounds,

@@ -63,7 +63,19 @@ export function BessMenu({ children }: { children: ReactNode }) {
     const page = document.documentElement;
     const previous = page.style.overflow;
     page.style.overflow = "hidden";
-    return () => { page.style.overflow = previous; };
+    const mobile = window.matchMedia('(max-width: 900px)');
+    const theme = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+    const previousTheme = theme?.content;
+    const updateTheme = () => {
+      if (theme) theme.content = mobile.matches ? '#ff0000' : (previousTheme ?? '#000000');
+    };
+    updateTheme();
+    mobile.addEventListener('change', updateTheme);
+    return () => {
+      page.style.overflow = previous;
+      mobile.removeEventListener('change', updateTheme);
+      if (theme && previousTheme !== undefined) theme.content = previousTheme;
+    };
   }, [open]);
   useEffect(() => () => { motion.current?.cancel(); }, []);
   const close = useCallback(() => {
